@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\edgar\\Documents\\FITBOOM\\BASE DE DATOS\\Fitboom3.0\\Fitboom3.0\\Fitboom3.0.csproj": {}
+    "C:\\Users\\edgar\\Documents\\FIT\\BASE DE DATOS\\Fitboom3.0\\Fitboom3.0\\Fitboom3.0.csproj": {}
   },
   "projects": {
-    "C:\\Users\\edgar\\Documents\\FITBOOM\\BASE DE DATOS\\Fitboom3.0\\Fitboom3.0\\Fitboom3.0.csproj": {
+    "C:\\Users\\edgar\\Documents\\FIT\\BASE DE DATOS\\Fitboom3.0\\Fitboom3.0\\Fitboom3.0.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\edgar\\Documents\\FITBOOM\\BASE DE DATOS\\Fitboom3.0\\Fitboom3.0\\Fitboom3.0.csproj",
+        "projectUniqueName": "C:\\Users\\edgar\\Documents\\FIT\\BASE DE DATOS\\Fitboom3.0\\Fitboom3.0\\Fitboom3.0.csproj",
         "projectName": "Fitboom3.0",
-        "projectPath": "C:\\Users\\edgar\\Documents\\FITBOOM\\BASE DE DATOS\\Fitboom3.0\\Fitboom3.0\\Fitboom3.0.csproj",
+        "projectPath": "C:\\Users\\edgar\\Documents\\FIT\\BASE DE DATOS\\Fitboom3.0\\Fitboom3.0\\Fitboom3.0.csproj",
         "packagesPath": "C:\\Users\\edgar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\edgar\\Documents\\FITBOOM\\BASE DE DATOS\\Fitboom3.0\\Fitboom3.0\\obj\\",
+        "outputPath": "C:\\Users\\edgar\\Documents\\FIT\\BASE DE DATOS\\Fitboom3.0\\Fitboom3.0\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Fitboom3.0")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b7d137579e3c8a48e3e83e4e24ca139f573809bf")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+97a82b29d16064d9d88514b31b7aa4d3c7e5c476")]
 [assembly: System.Reflection.AssemblyProductAttribute("Fitboom3.0")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Fitboom3.0")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
