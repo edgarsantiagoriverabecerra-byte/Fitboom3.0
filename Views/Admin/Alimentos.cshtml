@@ -1,0 +1,350 @@
+﻿@{
+    ViewData["Title"] = "Gestión de Nutrición";
+}
+
+<div class="container py-4">
+    <!-- Botón de retroceso visible con color claro y flecha -->
+    <div class="mb-3">
+        <a href="@Url.Action("Index", "Admin")" class="text-decoration-none text-light d-inline-flex align-items-center gap-2 fw-semibold" style="font-size: 0.95rem;">
+            <i class="bi bi-arrow-left fs-5"></i> Volver al panel
+        </a>
+    </div>
+
+    <!-- Encabezado con título y subtítulo -->
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+        <div>
+            <h2 class="fw-bold text-white mb-1">
+                <i class="bi bi-egg-fried text-neon me-2"></i> Gestión de Nutrición (Alimentos de Usuarios)
+            </h2>
+            <p class="mb-0" style="color: #bbbbbb; font-size: 0.95rem;">
+                Administra, valida, edita o elimina los registros nutricionales y alimentos ingresados por los usuarios.
+            </p>
+        </div>
+        <div>
+            <!-- Botón de Añadir Funcional -->
+            <button class="btn btn-outline-light btn-sm px-3 py-2" data-bs-toggle="modal" data-bs-target="#modalAgregar">
+                <i class="bi bi-plus-lg me-1"></i> Añadir Registro Nutricional
+            </button>
+        </div>
+    </div>
+
+    <!-- Contenedor de la Tabla con ancho controlado -->
+    <div class="card bg-dark border-secondary shadow-sm mx-auto">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-dark table-hover align-middle mb-0" id="tablaAlimentos">
+                    <thead class="table-secondary text-uppercase fs-7 text-secondary border-bottom border-secondary">
+                        <tr>
+                            <th class="ps-3 py-3">Alimento / Plato</th>
+                            <th>Usuario</th>
+                            <th>Calorías</th>
+                            <th>Proteínas</th>
+                            <th>Carbs</th>
+                            <th>Grasas</th>
+                            <th>Categoría</th>
+                            <th class="text-end pe-3">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Fila 1 -->
+                        <tr>
+                            <td class="ps-3 fw-bold text-white">Avena con plátano</td>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="rounded-circle bg-secondary text-white d-inline-flex align-items-center justify-content-center fw-bold" style="width: 32px; height: 32px; font-size: 0.8rem;">CM</span>
+                                    <span>Carlos Méndez</span>
+                                </div>
+                            </td>
+                            <td>312 kcal</td>
+                            <td>12.5 g</td>
+                            <td>58 g</td>
+                            <td>4.2 g</td>
+                            <td><span class="badge bg-warning text-dark px-2 py-1">Desayuno</span></td>
+                            <td class="text-end pe-3">
+                                <button class="btn btn-sm btn-outline-primary" title="Editar" onclick="abrirEditar(this, 'Avena con plátano', 'Carlos Méndez', '312', '12.5', '58', '4.2', 'Desayuno')">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" title="Eliminar" onclick="eliminarFila(this)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Fila 2 -->
+                        <tr>
+                            <td class="ps-3 fw-bold text-white">Pechuga de pollo a la plancha</td>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="rounded-circle bg-secondary text-white d-inline-flex align-items-center justify-content-center fw-bold" style="width: 32px; height: 32px; font-size: 0.8rem;">CM</span>
+                                    <span>Carlos Méndez</span>
+                                </div>
+                            </td>
+                            <td>284 kcal</td>
+                            <td>46 g</td>
+                            <td>0 g</td>
+                            <td>6.2 g</td>
+                            <td><span class="badge bg-info text-dark px-2 py-1">Almuerzo</span></td>
+                            <td class="text-end pe-3">
+                                <button class="btn btn-sm btn-outline-primary" title="Editar" onclick="abrirEditar(this, 'Pechuga de pollo a la plancha', 'Carlos Méndez', '284', '46', '0', '6.2', 'Almuerzo')">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" title="Eliminar" onclick="eliminarFila(this)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <!-- Fila 3 -->
+                        <tr>
+                            <td class="ps-3 fw-bold text-white">Salmón salvaje</td>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="rounded-circle bg-secondary text-white d-inline-flex align-items-center justify-content-center fw-bold" style="width: 32px; height: 32px; font-size: 0.8rem;">SR</span>
+                                    <span>Santiago R.</span>
+                                </div>
+                            </td>
+                            <td>206 kcal</td>
+                            <td>30 g</td>
+                            <td>0 g</td>
+                            <td>9 g</td>
+                            <td><span class="badge bg-success text-white px-2 py-1">Cena</span></td>
+                            <td class="text-end pe-3">
+                                <button class="btn btn-sm btn-outline-primary" title="Editar" onclick="abrirEditar(this, 'Salmón salvaje', 'Santiago R.', '206', '30', '0', '9', 'Cena')">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" title="Eliminar" onclick="eliminarFila(this)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Añadir Registro Nutricional -->
+<div class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="modalAgregarLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark text-white border-secondary">
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title" id="modalAgregarLabel"><i class="bi bi-plus-circle me-2 text-success"></i>Añadir Nuevo Alimento</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formAgregar">
+                    <div class="mb-3">
+                        <label class="form-label text-muted">Alimento / Plato</label>
+                        <input type="text" class="form-control bg-secondary text-white border-0" id="nuevoAlimento" placeholder="Ej. Batido de proteínas" required />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-muted">Usuario</label>
+                        <input type="text" class="form-control bg-secondary text-white border-0" id="nuevoUsuario" value="Santiago R." required />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-muted">Calorías (kcal)</label>
+                            <input type="number" class="form-control bg-secondary text-white border-0" id="nuevoCalorias" placeholder="150" required />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-muted">Proteínas (g)</label>
+                            <input type="text" class="form-control bg-secondary text-white border-0" id="nuevoProteinas" placeholder="20g" required />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-muted">Carbs (g)</label>
+                            <input type="text" class="form-control bg-secondary text-white border-0" id="nuevoCarbs" placeholder="5g" required />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-muted">Grasas (g)</label>
+                            <input type="text" class="form-control bg-secondary text-white border-0" id="nuevoGrasas" placeholder="3g" required />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-muted">Categoría</label>
+                        <select class="form-select bg-secondary text-white border-0" id="nuevoCategoria">
+                            <option value="Desayuno">Desayuno</option>
+                            <option value="Almuerzo">Almuerzo</option>
+                            <option value="Cena">Cena</option>
+                            <option value="Snack">Snack</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer border-secondary">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" onclick="agregarRegistro()">Guardar Alimento</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para Editar Registro Nutricional -->
+<div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark text-white border-secondary">
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title" id="modalEditarLabel"><i class="bi bi-pencil-square me-2 text-primary"></i>Editar Registro Nutricional</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formEditar">
+                    <div class="mb-3">
+                        <label class="form-label text-muted">Alimento / Plato</label>
+                        <input type="text" class="form-control bg-secondary text-white border-0" id="editAlimento" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-muted">Usuario</label>
+                        <input type="text" class="form-control bg-secondary text-white border-0" id="editUsuario" />
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-muted">Calorías (kcal)</label>
+                            <input type="text" class="form-control bg-secondary text-white border-0" id="editCalorias" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-muted">Proteínas (g)</label>
+                            <input type="text" class="form-control bg-secondary text-white border-0" id="editProteinas" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-muted">Carbs (g)</label>
+                            <input type="text" class="form-control bg-secondary text-white border-0" id="editCarbs" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label text-muted">Grasas (g)</label>
+                            <input type="text" class="form-control bg-secondary text-white border-0" id="editGrasas" />
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-muted">Categoría</label>
+                        <select class="form-select bg-secondary text-white border-0" id="editCategoria">
+                            <option value="Desayuno">Desayuno</option>
+                            <option value="Almuerzo">Almuerzo</option>
+                            <option value="Cena">Cena</option>
+                            <option value="Snack">Snack</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer border-secondary">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" onclick="guardarEdicion()">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let filaEnEdicion = null;
+
+        function abrirEditar(btn, alimento, usuario, calorias, proteinas, carbs, grasas, categoria) {
+            filaEnEdicion = btn.closest('tr');
+            document.getElementById('editAlimento').value = alimento;
+            document.getElementById('editUsuario').value = usuario;
+            document.getElementById('editCalorias').value = calorias;
+            document.getElementById('editProteinas').value = proteinas;
+            document.getElementById('editCarbs').value = carbs;
+            document.getElementById('editGrasas').value = grasas;
+            document.getElementById('editCategoria').value = categoria;
+
+            var myModal = new bootstrap.Modal(document.getElementById('modalEditar'));
+            myModal.show();
+        }
+
+        function guardarEdicion() {
+            if (!filaEnEdicion) return;
+
+            const alimento = document.getElementById('editAlimento').value;
+            const usuario = document.getElementById('editUsuario').value;
+            const calorias = document.getElementById('editCalorias').value;
+            const proteinas = document.getElementById('editProteinas').value;
+            const carbs = document.getElementById('editCarbs').value;
+            const grasas = document.getElementById('editGrasas').value;
+            const categoria = document.getElementById('editCategoria').value;
+
+            const iniciales = usuario.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+            let badgeClass = 'bg-warning text-dark';
+            if (categoria === 'Almuerzo') badgeClass = 'bg-info text-dark';
+            else if (categoria === 'Cena') badgeClass = 'bg-success text-white';
+            else if (categoria === 'Snack') badgeClass = 'bg-primary text-white';
+
+            filaEnEdicion.cells[0].innerText = alimento;
+            filaEnEdicion.cells[1].innerHTML = `
+                <div class="d-flex align-items-center gap-2">
+                    <span class="rounded-circle bg-secondary text-white d-inline-flex align-items-center justify-content-center fw-bold" style="width: 32px; height: 32px; font-size: 0.8rem;">${iniciales}</span>
+                    <span>${usuario}</span>
+                </div>`;
+            filaEnEdicion.cells[2].innerText = calorias.includes('kcal') ? calorias : calorias + ' kcal';
+            filaEnEdicion.cells[3].innerText = proteinas.includes('g') ? proteinas : proteinas + ' g';
+            filaEnEdicion.cells[4].innerText = carbs.includes('g') ? carbs : carbs + ' g';
+            filaEnEdicion.cells[5].innerText = grasas.includes('g') ? grasas : grasas + ' g';
+            filaEnEdicion.cells[6].innerHTML = `<span class="badge ${badgeClass} px-2 py-1">${categoria}</span>`;
+
+            var myModalEl = document.getElementById('modalEditar');
+            var modal = bootstrap.Modal.getInstance(myModalEl);
+            modal.hide();
+        }
+
+        function agregarRegistro() {
+            const alimento = document.getElementById('nuevoAlimento').value;
+            const usuario = document.getElementById('nuevoUsuario').value;
+            const calorias = document.getElementById('nuevoCalorias').value;
+            const proteinas = document.getElementById('nuevoProteinas').value;
+            const carbs = document.getElementById('nuevoCarbs').value;
+            const grasas = document.getElementById('nuevoGrasas').value;
+            const categoria = document.getElementById('nuevoCategoria').value;
+
+            if (!alimento || !calorias) {
+                alert('Por favor complete al menos el alimento y las calorías.');
+                return;
+            }
+
+            const iniciales = usuario.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+            let badgeClass = 'bg-warning text-dark';
+            if (categoria === 'Almuerzo') badgeClass = 'bg-info text-dark';
+            else if (categoria === 'Cena') badgeClass = 'bg-success text-white';
+            else if (categoria === 'Snack') badgeClass = 'bg-primary text-white';
+
+            const tbody = document.querySelector('#tablaAlimentos tbody');
+            const nuevaFila = document.createElement('tr');
+            nuevaFila.innerHTML = `
+                <td class="ps-3 fw-bold text-white">${alimento}</td>
+                <td>
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="rounded-circle bg-secondary text-white d-inline-flex align-items-center justify-content-center fw-bold" style="width: 32px; height: 32px; font-size: 0.8rem;">${iniciales}</span>
+                        <span>${usuario}</span>
+                    </div>
+                </td>
+                <td>${calorias} kcal</td>
+                <td>${proteinas}</td>
+                <td>${carbs}</td>
+                <td>${grasas}</td>
+                <td><span class="badge ${badgeClass} px-2 py-1">${categoria}</span></td>
+                <td class="text-end pe-3">
+                    <button class="btn btn-sm btn-outline-primary" title="Editar" onclick="abrirEditar(this, '${alimento}', '${usuario}', '${calorias}', '${proteinas}', '${carbs}', '${grasas}', '${categoria}')">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger" title="Eliminar" onclick="eliminarFila(this)">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </td>
+            `;
+            tbody.appendChild(nuevaFila);
+
+            document.getElementById('formAgregar').reset();
+            var myModalEl = document.getElementById('modalAgregar');
+            var modal = bootstrap.Modal.getInstance(myModalEl);
+            modal.hide();
+        }
+
+        function eliminarFila(btn) {
+            if (confirm('¿Estás seguro de eliminar este registro?')) {
+                const fila = btn.closest('tr');
+                fila.remove();
+            }
+        }
+    </script>
+}

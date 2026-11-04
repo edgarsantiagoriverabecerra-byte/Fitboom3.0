@@ -1,0 +1,63 @@
+﻿@model FITBOOM.Models.Usuario
+
+@{
+    ViewData["Title"] = "Agregar Nuevo Usuario";
+}
+
+<div class="container mt-4" style="color: white; max-width: 600px;">
+    <h2 class="mb-4" style="color: #ADFF2F; font-weight: bold;">Agregar Nuevo Usuario</h2>
+
+    <div style="background-color: #1a1a1a; padding: 30px; border-radius: 8px; border: 1px solid #333;">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="Nombre" class="form-label text-muted">Nombre</label>
+                <input asp-for="Nombre" class="form-control bg-dark text-white border-secondary" placeholder="Ingrese el nombre" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Apellido" class="form-label text-muted">Apellido</label>
+                <input asp-for="Apellido" class="form-control bg-dark text-white border-secondary" placeholder="Ingrese el apellido" />
+                <span asp-validation-for="Apellido" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Correo" class="form-label text-muted">Correo Electrónico</label>
+                <input asp-for="Correo" class="form-control bg-dark text-white border-secondary" placeholder="correo@gmail.com" />
+                <span asp-validation-for="Correo" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Contraseña" class="form-label text-muted">Contraseña</label>
+                <!-- Usamos "Contrasena" sin eñe para que coincida exactamente con el modelo de C# -->
+                <input asp-for="Contraseña" type="password" class="form-control bg-dark text-white border-secondary" placeholder="********" />
+                <span asp-validation-for="Contraseña" class="text-danger"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="Rol" class="form-label text-muted">Rol</label>
+                <select asp-for="Rol" class="form-control bg-dark text-white border-secondary">
+                    <option value="">Seleccione un rol...</option>
+                    <option value="Administrador">Administrador</option>
+                    <option value="Entrenador">Entrenador</option>
+                    <option value="Nutricionista">Nutricionista</option>
+                    <option value="Cliente">Cliente</option>
+                </select>
+                <span asp-validation-for="Rol" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center">
+                <a asp-action="Index" class="btn btn-outline-secondary px-4">Cancelar</a>
+                <button type="submit" class="btn fw-bold px-4" style="background-color: #ADFF2F; color: #000; border: none;">Guardar Usuario</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

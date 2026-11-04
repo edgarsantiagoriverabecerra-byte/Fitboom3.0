@@ -1,0 +1,511 @@
+﻿@{
+    ViewData["Title"] = "Rutinas de Entrenamiento";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FITBOOM</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #181818;
+            --accent-green: #ADFF2F;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Barra de Navegación Superior Estilo Spotify/Fitboom */
+        .navbar-fitboom {
+            background-color: var(--bg-color);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .btn-salir {
+            background: transparent;
+            border: 1px solid #2e2e2e;
+            color: var(--text-main);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+            .btn-salir:hover {
+                border-color: var(--accent-green);
+                color: var(--accent-green);
+            }
+
+        /* Cabecera del Usuario y Menú Central Flotante */
+        .user-header-container {
+            max-width: 1200px;
+            margin: 10px auto 40px auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .user-profile-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-green);
+            object-fit: cover;
+        }
+
+        .user-text h4 {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .user-text p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+            .user-text p span {
+                color: var(--accent-green);
+                font-weight: 700;
+            }
+
+        /* Píldora de Navegación Central */
+        .nav-pills-custom {
+            display: flex;
+            background-color: var(--card-bg);
+            padding: 6px;
+            border-radius: 30px;
+            border: 1px solid #2e2e2e;
+            gap: 5px;
+        }
+
+        .nav-pill-item {
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 8px 22px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+            .nav-pill-item:hover {
+                color: var(--text-main);
+            }
+
+            .nav-pill-item.active {
+                background-color: var(--accent-green);
+                color: #121212;
+            }
+
+        .settings-btn {
+            background-color: var(--card-bg);
+            border: 1px solid #2e2e2e;
+            color: #d1b3ff;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+            .settings-btn:hover {
+                border-color: var(--accent-green);
+            }
+
+        /* Contenido Principal */
+        .container-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+            .section-title span {
+                color: var(--accent-green);
+                font-style: italic;
+            }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 35px;
+            font-size: 1rem;
+        }
+
+        /* Filtros por Niveles */
+        .filter-tabs {
+            display: flex;
+            background-color: var(--card-bg);
+            padding: 5px;
+            border-radius: 30px;
+            width: fit-content;
+            border: 1px solid #2e2e2e;
+            margin-bottom: 30px;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 8px 25px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+            .filter-btn.active, .filter-btn:hover {
+                background-color: var(--accent-green);
+                color: #121212;
+            }
+
+        /* Secciones de Contenido por Plan (Ocultas por defecto) */
+        .plan-content {
+            display: none;
+        }
+
+            .plan-content.active {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+        /* Tarjetas de Rutinas */
+        .routine-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #2a2a2a;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+            .routine-card:hover {
+                transform: translateY(-5px);
+                border-color: var(--accent-green);
+            }
+
+        .routine-img-container {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+            .routine-img-container img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                filter: brightness(0.85);
+            }
+
+        .badge-tag {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--accent-green);
+            color: #121212;
+            font-weight: 800;
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .routine-body {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .routine-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .routine-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            flex-grow: 1;
+        }
+
+        .routine-footer {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #2a2a2a;
+            padding-top: 15px;
+            margin-top: auto;
+        }
+
+        .stat-box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-top: 2px;
+        }
+
+        footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid #2a2a2a;
+            padding: 25px 0;
+            margin-top: 60px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+            footer span {
+                color: var(--accent-green);
+                font-weight: bold;
+            }
+    </style>
+</head>
+<body>
+
+    <!-- Barra Superior con Botón Salir -->
+    <nav class="navbar-fitboom">
+        <a href="@Url.Action("Index", "Home")" class="btn-salir">
+            <i class="fa-solid fa-right-from-bracket"></i> Salir
+        </a>
+    </nav>
+
+    <!-- Cabecera de Bienvenida y Menú Central (Sin 'Inicio') -->
+    <div class="user-header-container">
+        <div class="user-profile-info">
+            <img src="@(Context.Session.GetString("UsuarioFoto") ?? "/images/imagen predeterminada.jpg")" alt="Avatar" class="user-avatar" />
+            <div class="user-text">
+                <h4>Hola, @Context.Session.GetString("UsuarioNombre")</h4>
+                <p>Tu progreso de hoy está al <span>79%</span></p>
+            </div>
+        </div>
+
+        <div class="nav-pills-custom">
+            <a href="@Url.Action("Index", "Cliente")" class="nav-pill-item">Nutrición</a>
+            <a href="@Url.Action("Rutinas", "Cliente")" class="nav-pill-item active">Rutinas</a>
+            <a href="#" class="nav-pill-item">Comunidad</a>
+        </div>
+
+        <div class="settings-btn">
+            <i class="fa-solid fa-gear"></i>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="container-content">
+        <h1 class="section-title">Rutinas de <span>Entrenamiento</span></h1>
+        <p class="section-subtitle">Descubre la profundidad de entrenamiento que obtienes en cada nivel de nuestra membresía.</p>
+
+        <!-- Pestañas de Filtro -->
+        <div class="filter-tabs">
+            <button class="filter-btn" onclick="filtrarRutinas('basico', event)">BÁSICO</button>
+            <button class="filter-btn active" onclick="filtrarRutinas('pro', event)">PRO</button>
+            <button class="filter-btn" onclick="filtrarRutinas('elite', event)">ÉLITE</button>
+        </div>
+
+        <!-- ================= PLAN BÁSICO ================= -->
+        <div id="plan-basico" class="row plan-content">
+            <div class="col-md-4">
+                <div class="routine-card">
+                    <div class="routine-img-container">
+                        <span class="badge-tag" style="background-color: #a0a0a0; color: #121212;">BÁSICO</span>
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&q=80&w=600" alt="Full Body Iniciación">
+                    </div>
+                    <div class="routine-body">
+                        <h3 class="routine-title">Full Body Iniciación</h3>
+                        <p class="routine-desc">Rutina fundamental para adaptar los músculos, aprender la postura correcta y activar todo el cuerpo.</p>
+                        <div class="routine-footer">
+                            <div class="stat-box"><span class="stat-label">Duración</span><span class="stat-value">45 min</span></div>
+                            <div class="stat-box" style="text-align: right;"><span class="stat-label">Días / Sem</span><span class="stat-value">3 Días</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="routine-card">
+                    <div class="routine-img-container">
+                        <span class="badge-tag" style="background-color: #a0a0a0; color: #121212;">BÁSICO</span>
+                        <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&q=80&w=600" alt="Cardio Base">
+                    </div>
+                    <div class="routine-body">
+                        <h3 class="routine-title">Cardio Base & Resistencia</h3>
+                        <p class="routine-desc">Mejora tu capacidad aeróbica y quema grasa de forma controlada con intervalos de bajo impacto.</p>
+                        <div class="routine-footer">
+                            <div class="stat-box"><span class="stat-label">Duración</span><span class="stat-value">30 min</span></div>
+                            <div class="stat-box" style="text-align: right;"><span class="stat-label">Días / Sem</span><span class="stat-value">3 Días</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PLAN PRO (Por defecto visible) ================= -->
+        <div id="plan-pro" class="row plan-content active">
+            <div class="col-md-4">
+                <div class="routine-card">
+                    <div class="routine-img-container">
+                        <span class="badge-tag">PRO</span>
+                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=600" alt="Hipertrofia Funcional">
+                    </div>
+                    <div class="routine-body">
+                        <h3 class="routine-title">Hipertrofia Funcional</h3>
+                        <p class="routine-desc">Enfocada en ganar masa muscular mientras mantienes la movilidad y agilidad necesaria para el día a día.</p>
+                        <div class="routine-footer">
+                            <div class="stat-box"><span class="stat-label">Duración</span><span class="stat-value">60-75 min</span></div>
+                            <div class="stat-box" style="text-align: right;"><span class="stat-label">Días / Sem</span><span class="stat-value">4 Días</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="routine-card">
+                    <div class="routine-img-container">
+                        <span class="badge-tag">PRO</span>
+                        <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&q=80&w=600" alt="Power-Building">
+                    </div>
+                    <div class="routine-body">
+                        <h3 class="routine-title">Power-Building</h3>
+                        <p class="routine-desc">Combinación de fuerza máxima (powerlifting) con estética (bodybuilding), el equilibrio perfecto de potencia.</p>
+                        <div class="routine-footer">
+                            <div class="stat-box"><span class="stat-label">Duración</span><span class="stat-value">90 min</span></div>
+                            <div class="stat-box" style="text-align: right;"><span class="stat-label">Días / Sem</span><span class="stat-value">5 Días</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="routine-card">
+                    <div class="routine-img-container">
+                        <span class="badge-tag">PRO</span>
+                        <img src="https://images.unsplash.com/photo-1549060279-7e168fcee0c2?auto=format&fit=crop&q=80&w=600" alt="Quema Metabólica HIIT">
+                    </div>
+                    <div class="routine-body">
+                        <h3 class="routine-title">Quema Metabólica HIIT</h3>
+                        <p class="routine-desc">Circuitos de alta intensidad diseñados para maximizar el consumo de oxígeno post-ejercicio (EPOC).</p>
+                        <div class="routine-footer">
+                            <div class="stat-box"><span class="stat-label">Duración</span><span class="stat-value">45 min</span></div>
+                            <div class="stat-box" style="text-align: right;"><span class="stat-label">Días / Sem</span><span class="stat-value">3 Días</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= PLAN ÉLITE ================= -->
+        <div id="plan-elite" class="row plan-content">
+            <div class="col-md-4">
+                <div class="routine-card">
+                    <div class="routine-img-container">
+                        <span class="badge-tag" style="background-color: #d1b3ff; color: #121212;">ÉLITE</span>
+                        <img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&q=80&w=600" alt="Fuerza Extrema & Peak">
+                    </div>
+                    <div class="routine-body">
+                        <h3 class="routine-title">Fuerza Extrema & Peak</h3>
+                        <p class="routine-desc">Programación avanzada con porcentajes de 1RM, ondas de carga y técnicas de alta intensidad para atletas experimentados.</p>
+                        <div class="routine-footer">
+                            <div class="stat-box"><span class="stat-label">Duración</span><span class="stat-value">100 min</span></div>
+                            <div class="stat-box" style="text-align: right;"><span class="stat-label">Días / Sem</span><span class="stat-value">6 Días</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="routine-card">
+                    <div class="routine-img-container">
+                        <span class="badge-tag" style="background-color: #d1b3ff; color: #121212;">ÉLITE</span>
+                        <img src="https://images.unsplash.com/photo-1550259979-ed79b48d2a30?auto=format&fit=crop&q=80&w=600" alt="Acondicionamiento Pro">
+                    </div>
+                    <div class="routine-body">
+                        <h3 class="routine-title">Acondicionamiento Olímpico</h3>
+                        <p class="routine-desc">Trabajo especializado en levantamientos olímpicos (Arrancada y Envión) y optimización de la potencia explosiva.</p>
+                        <div class="routine-footer">
+                            <div class="stat-box"><span class="stat-label">Duración</span><span class="stat-value">75 min</span></div>
+                            <div class="stat-box" style="text-align: right;"><span class="stat-label">Días / Sem</span><span class="stat-value">5 Días</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 <span>FITBOOM</span>. Comprometidos con tu excelencia física.</p>
+        </div>
+    </footer>
+
+    <!-- Script para alternar los contenidos de cada plan -->
+    <script>
+        function filtrarRutinas(nivel, event) {
+            // Actualizar botones activos del filtro
+            const botones = document.querySelectorAll('.filter-btn');
+            botones.forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            // Ocultar todos los contenidos de planes
+            const planes = document.querySelectorAll('.plan-content');
+            planes.forEach(plan => plan.classList.remove('active'));
+
+            // Mostrar únicamente el plan seleccionado
+            const planSeleccionado = document.getElementById('plan-' + nivel);
+            if (planSeleccionado) {
+                planSeleccionado.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

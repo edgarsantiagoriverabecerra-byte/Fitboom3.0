@@ -1,0 +1,112 @@
+﻿@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Configuración del Sistema";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="fw-bold text-white mb-0"><i class="bi bi-gear text-neon me-2"></i>Configuración de FITBOOM</h3>
+        <p class="text-muted small mb-0">Parámetros generales del sistema y preferencias de la plataforma.</p>
+    </div>
+    <div>
+        <button type="button" class="btn btn-sm bg-neon text-dark fw-bold" onclick="alert('Configuración guardada correctamente.');">
+            <i class="bi bi-save me-1"></i> Guardar Cambios
+        </button>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- Ajustes Generales -->
+    <div class="col-md-6">
+        <div class="card bg-dark border-secondary shadow-sm h-100">
+            <div class="card-header bg-transparent border-secondary text-white fw-bold">
+                <i class="bi bi-sliders me-2 text-neon"></i> Ajustes Generales
+            </div>
+            <div class="card-body">
+                <div class="form-check form-switch mb-3">
+                    <input class="form-check-input" type="checkbox" id="mantenimientoSwitch">
+                    <label class="form-check-label text-white" for="mantenimientoSwitch">Modo Mantenimiento</label>
+                    <div class="form-text text-muted small">Desactiva temporalmente el acceso público a la plataforma.</div>
+                </div>
+                <div class="form-check form-switch mb-3">
+                    <input class="form-check-input" type="checkbox" id="registroSwitch" checked>
+                    <label class="form-check-label text-white" for="registroSwitch">Permitir Nuevos Registros</label>
+                    <div class="form-text text-muted small">Habilita o desgrana la inscripción de nuevos usuarios y clientes.</div>
+                </div>
+                <div class="form-check form-switch mb-3">
+                    <input class="form-check-input" type="checkbox" id="notifEmailSwitch" checked>
+                    <label class="form-check-label text-white" for="notifEmailSwitch">Alertas de Correo Automáticas</label>
+                    <div class="form-text text-muted small">Envía recordatorios de rutinas y membresías a los correos registrados.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gestión de Datos y Respaldo -->
+    <div class="col-md-6">
+        <div class="card bg-dark border-secondary shadow-sm h-100">
+            <div class="card-header bg-transparent border-secondary text-white fw-bold">
+                <i class="bi bi-database-fill-gear me-2 text-neon"></i> Base de Datos y Mantenimiento
+            </div>
+            <div class="card-body d-flex flex-column justify-content-between">
+                <div>
+                    <p class="text-muted small mb-3">Administra copias de seguridad locales y depura registros antiguos del sistema.</p>
+                    <div class="mb-3">
+                        <label class="form-label text-white small fw-bold">Frecuencia de Respaldo Automático</label>
+                        <select class="form-select bg-secondary text-white border-0 form-select-sm">
+                            <option selected>Diario</option>
+                            <option>Semanal</option>
+                            <option>Mensual</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="d-flex gap-2 mt-3">
+                    <button type="button" class="btn btn-outline-light btn-sm flex-grow-1" onclick="alert('Generando respaldo de la base de datos...');">
+                        <i class="bi bi-download me-1"></i> Respaldar SQL
+                    </button>
+                    <button type="button" class="btn btn-outline-danger btn-sm" onclick="alert('Caché del sistema limpiada con éxito.');">
+                        <i class="bi bi-trash me-1"></i> Limpiar Caché
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Personalización de Apariencia -->
+    <div class="col-md-12">
+        <div class="card bg-dark border-secondary shadow-sm">
+            <div class="card-header bg-transparent border-secondary text-white fw-bold">
+                <i class="bi bi-palette me-2 text-neon"></i> Identidad y Apariencia Visual
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label text-white small">Nombre del Sistema</label>
+                        <input type="text" class="form-control bg-secondary text-white border-0 form-control-sm" value="FITBOOM Admin Dashboard" />
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label text-white small">Color de Énfasis (Neón)</label>
+                        <div class="input-group input-group-sm">
+                            <input type="color" class="form-control form-control-color bg-secondary border-0" value="#ccff00" title="Elige tu color" />
+                            <input type="text" class="form-control bg-secondary text-white border-0" value="#ccff00" />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label text-white small">Correo de Contacto / Soporte</label>
+                        <input type="email" class="form-control bg-secondary text-white border-0 form-control-sm" value="soporte@fitboom.com" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        // Scripts específicos de configuración si los necesitas
+    </script>
+}
+
+---
+<FollowUp>
+    ¿Te gustaría vincular estos interruptores o campos de texto directamente con una tabla en tu base de datos mediante Entity Framework Core?
+</FollowUp>

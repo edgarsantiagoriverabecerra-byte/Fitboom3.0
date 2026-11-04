@@ -1,0 +1,66 @@
+﻿@model IEnumerable<FITBOOM.Models.Usuario>
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Gestión de Usuarios";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="fw-bold text-white mb-1">
+            <i class="bi bi-people-fill text-neon me-2"></i>Gestión de Usuarios
+        </h3>
+        <!-- Texto más claro y visible -->
+        <p class="text-light opacity-75 small mb-0">
+            Listado de usuarios registrados en FITBOOM.
+        </p>
+    </div>
+</div>
+
+<div class="card bg-dark border-secondary shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle mb-0">
+                <thead>
+                    <tr class="text-white-50 border-bottom border-secondary small">
+                        <th class="ps-3" style="width: 80px;">ID</th>
+                        <th>Nombre Completo</th>
+                        <th>Correo</th>
+                        <th>Rol</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var u in Model)
+                        {
+                            <tr>
+                                <td class="ps-3 text-white-50 small">#@u.IdUsuario</td>
+                                <td class="fw-semibold text-white">@u.Nombre @u.Apellido</td>
+                                <td class="text-light opacity-75">@u.Correo</td>
+                                <td>
+                                    @{
+                                        var rolTexto = string.IsNullOrWhiteSpace(u.Rol) ? "Usuario" : u.Rol;
+                                        var badgeColor = rolTexto.ToLower().Contains("admin") ? "bg-danger" :
+                                        (rolTexto.ToLower().Contains("entrenador") || rolTexto.ToLower().Contains("trainer")) ? "bg-warning text-dark" : "bg-primary";
+                                    }
+                                    <span class="badge @badgeColor fw-bold px-3 py-2">
+                                        @rolTexto
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4" class="text-center py-4 text-light opacity-75">
+                                No se encontraron usuarios registrados.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

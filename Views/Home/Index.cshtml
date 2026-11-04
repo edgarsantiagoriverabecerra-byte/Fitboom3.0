@@ -1,0 +1,789 @@
+﻿@{
+    ViewData["Title"] = "FITBOOM | Forja tu mejor versión";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FITBOOM | Forja tu mejor versión</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts: Bebas Neue & Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Estilos del sitio -->
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <style>
+        /* Desplazamiento suave general */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Margen de desplazamiento para no solapar con la barra fija superior */
+        section, header {
+            scroll-margin-top: 80px;
+        }
+
+        .dropdown-item-fitboom:hover {
+            background-color: #2a2a2a !important;
+            color: #ADFF2F !important;
+        }
+
+        .brand-title {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1.5px;
+        }
+
+        .text-brand {
+            color: #ADFF2F !important;
+        }
+
+        .btn-brand {
+            background-color: #ADFF2F;
+            color: #000000;
+            border: none;
+        }
+
+            .btn-brand:hover {
+                background-color: #9ee628;
+                color: #000000;
+            }
+
+        .btn-black {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+            .btn-black:hover {
+                background-color: #1a1a1a;
+                color: #ffffff;
+            }
+
+        .bg-brand {
+            background-color: #ADFF2F !important;
+        }
+
+        /* Hero styling */
+        .hero-section {
+            min-height: 90vh;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 50%, rgba(0, 0, 0, 0.3) 100%), url('https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat #0a0a0a;
+            padding-top: 100px;
+        }
+
+        /* FitBot Floating UI */
+        .fitbot-floating-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #121212;
+            border: 2px solid #ADFF2F;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1050;
+            box-shadow: 0 4px 15px rgba(173, 255, 47, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+            .fitbot-floating-btn:hover {
+                transform: scale(1.08);
+            }
+
+        .fitbot-window {
+            position: fixed;
+            bottom: 95px;
+            right: 25px;
+            width: 350px;
+            max-width: 90vw;
+            height: 480px;
+            background-color: #121212;
+            border: 1px solid #333;
+            border-radius: 12px;
+            display: none;
+            flex-direction: column;
+            z-index: 1050;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+        }
+
+        .fitbot-header {
+            background-color: #1a1a1a;
+            padding: 12px 16px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .fitbot-status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #ADFF2F;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .fitbot-body {
+            padding: 16px;
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .fitbot-msg {
+            max-width: 85%;
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+            .fitbot-msg.bot {
+                background-color: #1e1e1e;
+                color: #ffffff;
+                align-self: flex-start;
+                border-left: 3px solid #ADFF2F;
+            }
+
+            .fitbot-msg.user {
+                background-color: #ADFF2F;
+                color: #000000;
+                align-self: flex-end;
+                font-weight: 600;
+            }
+
+        .fitbot-opt-btn {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            color: #ffffff;
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            text-align: left;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+            .fitbot-opt-btn:hover {
+                border-color: #ADFF2F;
+                color: #ADFF2F;
+                background-color: #222222;
+            }
+
+        .trainer-card {
+            overflow: hidden;
+        }
+
+        .trainer-img-wrapper {
+            overflow: hidden;
+            height: 300px;
+        }
+
+        .trainer-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .trainer-card:hover .trainer-img {
+            transform: scale(1.05);
+        }
+
+        .badge-tag {
+            background-color: rgba(173, 255, 47, 0.15);
+            color: #ADFF2F;
+            border: 1px solid #ADFF2F;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-black border-bottom border-dark">
+        <div class="container-fluid px-lg-5">
+            <a class="navbar-brand text-brand fw-bold fs-3 brand-title" href="#inicio">FITBOOM</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav mx-auto text-uppercase fw-semibold small">
+                    <li class="nav-item"><a class="nav-link text-light" href="#inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="#programas">Programas</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="#nutricion">Nutrición</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="#entrenadores">Entrenadores</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="#testimonios">Testimonios</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="#membresias">Membresías</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="#contacto">Contacto</a></li>
+                </ul>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-light btn-sm text-uppercase fw-bold px-3" data-bs-toggle="modal" data-bs-target="#modalLogin">Ingresar</button>
+                    <button class="btn btn-brand btn-sm text-uppercase fw-bold px-3" data-bs-toggle="modal" data-bs-target="#modalOnboarding">Únete Ahora</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="inicio" class="hero-section d-flex align-items-center position-relative text-white">
+        <div class="container px-4 px-lg-5">
+            <div class="row align-items-center">
+                <div class="col-lg-7">
+                    <h1 class="display-1 fw-bold text-uppercase brand-title">Forja tu<br><span class="text-brand">mejor</span><br>versión</h1>
+                    <p class="lead my-4">
+                        Entrenamiento personalizado, nutrición inteligente y una comunidad que te empuja más allá de tus límites. Tu transformación empieza aquí.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="#programas" class="btn btn-brand btn-lg fw-bold text-uppercase px-4">Ver Programas</a>
+                        <a href="#entrenadores" class="btn btn-outline-light btn-lg fw-bold text-uppercase px-4">Conoce al Equipo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Métricas Rápidas -->
+    <section class="py-4 bg-dark-subtle border-top border-bottom border-dark">
+        <div class="container">
+            <div class="row text-center gy-3">
+                <div class="col-6 col-md-3">
+                    <h3 class="text-brand fw-bold mb-0">1,200+</h3>
+                    <p class="text-uppercase small text-secondary mb-0">Miembros Activos</p>
+                </div>
+                <div class="col-6 col-md-3">
+                    <h3 class="text-brand fw-bold mb-0">14</h3>
+                    <p class="text-uppercase small text-secondary mb-0">Entrenadores Certificados</p>
+                </div>
+                <div class="col-6 col-md-3">
+                    <h3 class="text-brand fw-bold mb-0">98%</h3>
+                    <p class="text-uppercase small text-secondary mb-0">Tasa de Retención</p>
+                </div>
+                <div class="col-6 col-md-3">
+                    <h3 class="text-brand fw-bold mb-0">8</h3>
+                    <p class="text-uppercase small text-secondary mb-0">Años Transformando Vidas</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programas -->
+    <section id="programas" class="py-5 bg-black">
+        <div class="container py-4">
+            <p class="text-brand fw-bold mb-1 text-uppercase">// Programas</p>
+            <h2 class="display-4 fw-bold text-uppercase text-white mb-5 brand-title">Elige tu programa</h2>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 card-program p-3 text-white bg-dark border-secondary">
+                        <span class="badge badge-tag align-self-start mb-3">Alta Intensidad</span>
+                        <h4 class="card-title fw-bold text-uppercase brand-title">Entrenamiento Personal</h4>
+                        <p class="card-text flex-grow-1 small text-secondary">Sesiones 1 a 1 diseñadas para tu cuerpo, tu ritmo y tus metas. Adaptable ante lesiones articulares.</p>
+                        <hr class="border-secondary">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="small text-secondary">3-5 sesiones / sem</span>
+                            <a href="#" class="text-brand text-decoration-none fw-bold small" data-bs-toggle="modal" data-bs-target="#modalOnboarding">Ver Más &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 card-program p-3 text-white bg-dark border-secondary">
+                        <span class="badge badge-tag align-self-start mb-3">Fuerza</span>
+                        <h4 class="card-title fw-bold text-uppercase brand-title">Fuerza & Acondicionamiento</h4>
+                        <p class="card-text flex-grow-1 small text-secondary">Desarrolla masa muscular y resistencia funcional con protocolos seguros y progresiones técnicas.</p>
+                        <hr class="border-secondary">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="small text-secondary">4 sesiones / sem</span>
+                            <a href="#" class="text-brand text-decoration-none fw-bold small" data-bs-toggle="modal" data-bs-target="#modalOnboarding">Ver Más &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 card-program p-3 text-white bg-dark border-secondary">
+                        <span class="badge badge-tag align-self-start mb-3">Bienestar</span>
+                        <h4 class="card-title fw-bold text-uppercase brand-title">Nutrición & Estilo de Vida</h4>
+                        <p class="card-text flex-grow-1 small text-secondary">Planes alimentarios adaptados. Filtro de intolerancias y alertas para condiciones médicas.</p>
+                        <hr class="border-secondary">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="small text-secondary">Consulta + Guía</span>
+                            <a href="#nutricion" class="text-brand text-decoration-none fw-bold small">Ver Más &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="card h-100 card-program p-3 text-white bg-dark border-secondary">
+                        <span class="badge badge-tag align-self-start mb-3">Cardio</span>
+                        <h4 class="card-title fw-bold text-uppercase brand-title">HIIT & Cardio Funcional</h4>
+                        <p class="card-text flex-grow-1 small text-secondary">Quema grasa y potencia el sistema cardiovascular con alternativas sin impacto articular.</p>
+                        <hr class="border-secondary">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="small text-secondary">5 sesiones / sem</span>
+                            <a href="#" class="text-brand text-decoration-none fw-bold small" data-bs-toggle="modal" data-bs-target="#modalOnboarding">Ver Más &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nutrición Adaptativa -->
+    <section id="nutricion" class="py-5 bg-dark text-white border-top border-secondary">
+        <div class="container py-4">
+            <p class="text-brand fw-bold mb-1 text-uppercase">// Nutrición Personalizada</p>
+            <div class="d-flex justify-content-between align-items-end flex-wrap mb-4">
+                <h2 class="display-4 fw-bold text-uppercase brand-title mb-0">Come para rendir</h2>
+                <button class="btn btn-brand fw-bold text-uppercase px-4 mt-3 mt-md-0" data-bs-toggle="modal" data-bs-target="#modalOnboarding">Quiero mi Plan</button>
+            </div>
+
+            <ul class="nav nav-pills mb-4 border-bottom border-secondary pb-3" id="nutriTabs" role="tablist">
+                <li class="nav-item">
+                    <button class="nav-link text-white text-uppercase active" data-bs-toggle="pill" data-bs-target="#tab-principiante">Principiante (0-6 meses)</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link text-white text-uppercase" data-bs-toggle="pill" data-bs-target="#tab-intermedio">Intermedio (6-18 meses)</button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link text-white text-uppercase" data-bs-toggle="pill" data-bs-target="#tab-avanzado">Avanzado (18+ meses)</button>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="nutriTabsContent">
+                <div class="tab-pane fade show active" id="tab-principiante">
+                    <div class="row g-4 align-items-center">
+                        <div class="col-lg-4 border-end border-secondary">
+                            <h2 class="display-3 text-brand fw-bold mb-0">4</h2>
+                            <p class="text-uppercase text-secondary">Comidas / Día</p>
+                            <h3 class="text-brand fw-bold mb-0">1,800 - 2,200 kcal</h3>
+                            <p class="text-uppercase text-secondary">Calorías Objetivo</p>
+                            <p class="small text-secondary">Enfoque: Adherencia, hidratación continua y sustitución de ultraprocesados.</p>
+                        </div>
+                        <div class="col-lg-8">
+                            <ul class="list-group list-group-flush bg-transparent">
+                                <li class="list-group-item bg-transparent text-white border-secondary d-flex justify-content-between">
+                                    <span><strong>08:00</strong> Desayuno Balanceado</span>
+                                    <span class="text-secondary small">Huevos revueltos, avena y fruta</span>
+                                </li>
+                                <li class="list-group-item bg-transparent text-white border-secondary d-flex justify-content-between">
+                                    <span><strong>13:00</strong> Almuerzo Base</span>
+                                    <span class="text-secondary small">Pechuga a la plancha, arroz integral y ensalada</span>
+                                </li>
+                                <li class="list-group-item bg-transparent text-white border-secondary d-flex justify-content-between">
+                                    <span><strong>17:00</strong> Merienda Adaptada</span>
+                                    <span class="text-secondary small">Yogur griego o sustituto vegetal + semillas</span>
+                                </li>
+                                <li class="list-group-item bg-transparent text-white border-secondary d-flex justify-content-between">
+                                    <span><strong>20:30</strong> Cena Ligera</span>
+                                    <span class="text-secondary small">Pescado blanco al vapor con vegetales</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="tab-intermedio">
+                    <div class="row g-4 align-items-center">
+                        <div class="col-lg-4 border-end border-secondary">
+                            <h2 class="display-3 text-brand fw-bold mb-0">5</h2>
+                            <p class="text-uppercase text-secondary">Comidas / Día</p>
+                            <h3 class="text-brand fw-bold mb-0">2,200 - 2,800 kcal</h3>
+                            <p class="text-uppercase text-secondary">Calorías Objetivo</p>
+                            <p class="small text-secondary">Enfoque: Macros precisos, suplementación base y recarga post-entrenamiento.</p>
+                        </div>
+                        <div class="col-lg-8">
+                            <ul class="list-group list-group-flush bg-transparent">
+                                <li class="list-group-item bg-transparent text-white border-secondary d-flex justify-content-between">
+                                    <span><strong>06:00</strong> Pre-Entreno</span>
+                                    <span class="text-secondary small">Batido de proteína, plátano, café negro</span>
+                                </li>
+                                <li class="list-group-item bg-transparent text-white border-secondary d-flex justify-content-between">
+                                    <span><strong>09:00</strong> Desayuno Estructurado</span>
+                                    <span class="text-secondary small">Tostadas de centeno, salmón o tofu, aguacate</span>
+                                </li>
+                                <li class="list-group-item bg-transparent text-white border-secondary d-flex justify-content-between">
+                                    <span><strong>12:30</strong> Almuerzo Performance</span>
+                                    <span class="text-secondary small">Quinoa, carne magra, brócoli al vapor</span>
+                                </li>
+                                <li class="list-group-item bg-transparent text-white border-secondary d-flex justify-content-between">
+                                    <span><strong>16:00</strong> Merienda Activa</span>
+                                    <span class="text-secondary small">Batido recovery + puñado de almendras</span>
+                                </li>
+                                <li class="list-group-item bg-transparent text-white border-secondary d-flex justify-content-between">
+                                    <span><strong>20:00</strong> Cena Reparadora</span>
+                                    <span class="text-secondary small">Tilapia o legumbres al horno, batata y espinacas</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="tab-avanzado">
+                    <div class="row g-4 align-items-center">
+                        <div class="col-lg-4 border-end border-secondary">
+                            <h2 class="display-3 text-brand fw-bold mb-0">6</h2>
+                            <p class="text-uppercase text-secondary">Comidas / Día</p>
+                            <h3 class="text-brand fw-bold mb-0">3,000+ kcal</h3>
+                            <p class="text-uppercase text-secondary">Calorías Objetivo</p>
+                            <p class="small text-secondary">Enfoque: Periodización de carbohidratos según volumen de entrenamiento.</p>
+                        </div>
+                        <div class="col-lg-8">
+                            <p class="text-secondary">Plan de alta demanda metabólica con timing estricto intra y post-entreno.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Entrenadores -->
+    <section id="entrenadores" class="py-5 bg-black border-top border-secondary">
+        <div class="container py-4">
+            <p class="text-brand fw-bold mb-1 text-uppercase">// Entrenadores</p>
+            <h2 class="display-4 fw-bold text-uppercase text-white mb-5 brand-title">El equipo que te transforma</h2>
+
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card bg-dark text-white border-secondary trainer-card h-100">
+                        <div class="trainer-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?q=80&w=600&auto=format&fit=crop" class="trainer-img" alt="Carlos Mejía">
+                        </div>
+                        <div class="card-body">
+                            <span class="badge badge-tag mb-2">NSCA-CSCS • FMS</span>
+                            <h4 class="brand-title text-uppercase mb-1">Carlos Mejía</h4>
+                            <p class="text-secondary small mb-0">Head Coach • Fuerza & Biomecánica (12 años exp.)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card bg-dark text-white border-secondary trainer-card h-100">
+                        <div class="trainer-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=600&auto=format&fit=crop" class="trainer-img" alt="Andrea Torres">
+                        </div>
+                        <div class="card-body">
+                            <span class="badge badge-tag mb-2">PN Level 2 • ACSM</span>
+                            <h4 class="brand-title text-uppercase mb-1">Andrea Torres</h4>
+                            <p class="text-secondary small mb-0">Nutrición Deportiva & Bienestar (8 años exp.)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card bg-dark text-white border-secondary trainer-card h-100">
+                        <div class="trainer-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1534367507873-d2d7e24c797f?q=80&w=600&auto=format&fit=crop" class="trainer-img" alt="Diego Vargas">
+                        </div>
+                        <div class="card-body">
+                            <span class="badge badge-tag mb-2">CrossFit L3 • USAW</span>
+                            <h4 class="brand-title text-uppercase mb-1">Diego Vargas</h4>
+                            <p class="text-secondary small mb-0">HIIT & Acondicionamiento (9 años exp.)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonios -->
+    <section id="testimonios" class="py-5 bg-dark text-white border-top border-secondary">
+        <div class="container py-4">
+            <p class="text-brand fw-bold mb-1 text-uppercase">// Testimonios</p>
+            <h2 class="display-4 fw-bold text-uppercase brand-title mb-5">Lo que dice nuestra comunidad</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card bg-black border-secondary p-4 h-100">
+                        <span class="text-brand fs-1 lh-1">“</span>
+                        <p class="text-secondary small">En 6 meses perdí 18 kg y encontré una versión de mí que no sabía que existía. El plan nutricional adaptado lo cambió todo.</p>
+                        <h6 class="text-brand fw-bold text-uppercase mb-0 mt-auto">Sebastián R.</h6>
+                        <small class="text-secondary">Miembro Pro</small>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-black border-secondary p-4 h-100">
+                        <span class="text-brand fs-1 lh-1">“</span>
+                        <p class="text-secondary small">Carlos diseñó un plan de fuerza que cuidó mi lesión de hombro y duplicó mis marcas en 4 meses. Exigente, meticuloso y real.</p>
+                        <h6 class="text-brand fw-bold text-uppercase mb-0 mt-auto">Mariana G.</h6>
+                        <small class="text-secondary">Miembro Élite</small>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card bg-black border-secondary p-4 h-100">
+                        <span class="text-brand fs-1 lh-1">“</span>
+                        <p class="text-secondary small">Vine buscando bajar de peso y encontré una disciplina de vida. Ahora entreno para mi primera carrera de triatlón.</p>
+                        <h6 class="text-brand fw-bold text-uppercase mb-0 mt-auto">David P.</h6>
+                        <small class="text-secondary">Miembro Pro</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Planes Disponibles (CORREGIDO ID A "membresias") -->
+    <section id="membresias" class="py-5 bg-black border-top border-secondary">
+        <div class="container py-4">
+            <p class="text-brand fw-bold mb-1 text-uppercase">// Planes Disponibles</p>
+            <h2 class="display-4 fw-bold text-uppercase text-white mb-5 brand-title">Elige tu plan</h2>
+
+            <div class="row g-4 align-items-stretch">
+                <div class="col-lg-4">
+                    <div class="card h-100 bg-dark text-white border-secondary p-4 d-flex flex-column justify-content-between">
+                        <div>
+                            <p class="text-uppercase text-secondary small fw-bold">Básico</p>
+                            <h3 class="display-5 fw-bold">$80,000 <span class="fs-6 text-secondary fw-normal">/ mes</span></h3>
+                            <ul class="list-unstyled mt-4 text-secondary small">
+                                <li class="mb-2"><i class="bi bi-check text-brand me-2"></i> Acceso ilimitado al gimnasio</li>
+                                <li class="mb-2"><i class="bi bi-check text-brand me-2"></i> Evaluación inicial básica</li>
+                                <li class="mb-2"><i class="bi bi-check text-brand me-2"></i> App de seguimiento estándar</li>
+                                <li class="mb-2"><i class="bi bi-check text-brand me-2"></i> Clases grupales x8 al mes</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-outline-light text-uppercase fw-bold w-100 mt-4" data-bs-toggle="modal" data-bs-target="#modalOnboarding">Comenzar Ahora</button>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card h-100 bg-brand text-black p-4 d-flex flex-column justify-content-between shadow-lg">
+                        <div>
+                            <span class="badge bg-black text-white text-uppercase mb-2">// Más Popular</span>
+                            <p class="text-uppercase fw-bold small mb-1">Pro</p>
+                            <h3 class="display-5 fw-bold">$230,000 <span class="fs-6 text-dark fw-normal">/ 3 meses</span></h3>
+                            <ul class="list-unstyled mt-4 small fw-semibold">
+                                <li class="mb-2"><i class="bi bi-check-lg me-2"></i> Todo lo de membresía Básica</li>
+                                <li class="mb-2"><i class="bi bi-check-lg me-2"></i> 4 sesiones personales / mes</li>
+                                <li class="mb-2"><i class="bi bi-check-lg me-2"></i> Plan nutricional adaptado a restricciones</li>
+                                <li class="mb-2"><i class="bi bi-check-lg me-2"></i> Clases grupales ilimitadas</li>
+                                <li class="mb-2"><i class="bi bi-check-lg me-2"></i> Análisis antropométrico mensual</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-black text-uppercase fw-bold w-100 mt-4" data-bs-toggle="modal" data-bs-target="#modalOnboarding">Comenzar Ahora</button>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="card h-100 bg-dark text-white border-secondary p-4 d-flex flex-column justify-content-between">
+                        <div>
+                            <p class="text-uppercase text-secondary small fw-bold">Élite</p>
+                            <h3 class="display-5 fw-bold">$900,000 <span class="fs-6 text-secondary fw-normal">/ anual</span></h3>
+                            <ul class="list-unstyled mt-4 text-secondary small">
+                                <li class="mb-2"><i class="bi bi-check text-brand me-2"></i> Todo en plan Pro incluido</li>
+                                <li class="mb-2"><i class="bi bi-check text-brand me-2"></i> Sesiones personales ilimitadas</li>
+                                <li class="mb-2"><i class="bi bi-check text-brand me-2"></i> Coaching 24/7 por WhatsApp</li>
+                                <li class="mb-2"><i class="bi bi-check text-brand me-2"></i> Plan integral de suplementación</li>
+                                <li class="mb-2"><i class="bi bi-check text-brand me-2"></i> Acceso prioritario VIP y locker</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-outline-light text-uppercase fw-bold w-100 mt-4" data-bs-toggle="modal" data-bs-target="#modalOnboarding">Comenzar Ahora</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto" class="py-5 bg-dark text-white border-top border-secondary">
+        <div class="container py-4">
+            <div class="row g-5">
+                <div class="col-lg-6">
+                    <p class="text-brand fw-bold mb-1 text-uppercase">// Contacto</p>
+                    <h2 class="display-4 fw-bold text-uppercase brand-title mb-4">Hablemos de tus metas</h2>
+                    <p class="mb-4">Agenda tu prueba gratuita o indícanos tus objetivos para asignarte el entrenador adecuado.</p>
+                    <div class="small text-secondary mb-2"><strong class="text-white">Ubicación:</strong> Carrera 18 # 42-27, Barrio El Prado</div>
+                    <div class="small text-secondary mb-2"><strong class="text-white">Horario:</strong> Lun - Vie: 5:00 am - 11:00 pm | Sáb - Dom: 7:00 am - 9:00 pm</div>
+                    <div class="small text-secondary"><strong class="text-white">Contacto:</strong> +57 314 255 6987 | contacto@fitboom.co</div>
+                </div>
+                <div class="col-lg-6">
+                    <form class="bg-black p-4 border border-secondary rounded">
+                        <div class="mb-3">
+                            <label class="form-label small text-uppercase text-secondary">Nombre Completo</label>
+                            <input type="text" class="form-control bg-dark text-white border-secondary" placeholder="Tu nombre" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-uppercase text-secondary">Correo Electrónico</label>
+                            <input type="email" class="form-control bg-dark text-white border-secondary" placeholder="tu@email.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-uppercase text-secondary">Teléfono</label>
+                            <input type="tel" class="form-control bg-dark text-white border-secondary" placeholder="+57 300 000 0000" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-uppercase text-secondary">Programa de Interés</label>
+                            <select class="form-select bg-dark text-white border-secondary">
+                                <option selected>Entrenamiento Personal 1 a 1</option>
+                                <option>Fuerza y Acondicionamiento</option>
+                                <option>Plan Nutricional Clínico / Deportivo</option>
+                                <option>HIIT & Funcional</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-brand w-100 fw-bold text-uppercase py-2">Enviar Mensaje</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modales -->
+    <div class="modal fade" id="modalLogin" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white border-secondary">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title brand-title text-uppercase">Iniciar Sesión en FITBOOM</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form asp-controller="Account" asp-action="Login" method="post">
+                        <div class="mb-3">
+                            <label class="form-label small text-uppercase text-secondary">Correo Electrónico</label>
+                            <input type="email" name="Email" class="form-control bg-black text-white border-secondary" placeholder="tu@email.com" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-uppercase text-secondary">Contraseña</label>
+                            <input type="password" name="Password" class="form-control bg-black text-white border-secondary" placeholder="••••••••" required>
+                        </div>
+                        <button type="submit" class="btn btn-brand w-100 fw-bold text-uppercase py-2">Ingresar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalOnboarding" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white border-secondary">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title brand-title text-uppercase">Únete a FITBOOM</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form asp-controller="Account" asp-action="Register" method="post">
+                        <div class="mb-3">
+                            <label class="form-label small text-uppercase text-secondary">Nombre Completo</label>
+                            <input type="text" name="Nombre" class="form-control bg-black text-white border-secondary" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small text-uppercase text-secondary">Correo Electrónico</label>
+                            <input type="email" name="Email" class="form-control bg-black text-white border-secondary" required>
+                        </div>
+                        <button type="submit" class="btn btn-brand w-100 fw-bold text-uppercase py-2 mt-2">Iniciar Transformación</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= FITBOT UI ================= -->
+    <button id="fitbotToggleBtn" class="fitbot-floating-btn" aria-label="Abrir FitBot">
+        🤖
+    </button>
+
+    <div id="fitbotWindow" class="fitbot-window">
+        <div class="fitbot-header">
+            <div class="d-flex align-items-center gap-2">
+                <span class="fs-4">🤖</span>
+                <div>
+                    <h6 class="mb-0 text-white fw-bold brand-title" style="letter-spacing: 0.5px;">FITBOT</h6>
+                    <small class="text-secondary d-flex align-items-center gap-1" style="font-size: 0.72rem;">
+                        <span class="fitbot-status-dot"></span> En línea
+                    </small>
+                </div>
+            </div>
+            <button id="fitbotCloseBtn" class="btn btn-sm btn-link text-secondary text-decoration-none p-0 fs-5" aria-label="Cerrar chat">&times;</button>
+        </div>
+
+        <div id="fitbotBody" class="fitbot-body">
+            <div class="fitbot-msg bot">
+                ¡Hola! Soy <strong>FitBot</strong> ⚡. Estoy aquí para guiarte en tu entrenamiento personalizado y nutrición adaptativa. ¿Qué deseas consultar?
+            </div>
+
+            <div class="fitbot-options" id="fitbotOptions">
+                <button class="fitbot-opt-btn my-1" onclick="handleFitbotQuestion('Planes de entrenamiento', '#programas', 'Descubre nuestros 4 programas adaptables según tus lesiones o nivel.')">
+                    <span>🏋️ Planes de entrenamiento</span>
+                    <i class="bi bi-chevron-right"></i>
+                </button>
+
+                <button class="fitbot-opt-btn my-1" onclick="handleFitbotQuestion('Planes nutricionales', '#nutricion', 'Nuestros planes calculan macros y sustituyen alimentos si tienes alergias o intolerancias.')">
+                    <span>🥗 Planes nutricionales</span>
+                    <i class="bi bi-chevron-right"></i>
+                </button>
+
+                <button class="fitbot-opt-btn my-1" onclick="handleFitbotQuestion('Membresías y precios', '#membresias', 'Conoce los planes Básico, Pro y Élite diseñados para tu presupuesto.')">
+                    <span>💳 Membresías y precios</span>
+                    <i class="bi bi-chevron-right"></i>
+                </button>
+
+                <button class="fitbot-opt-btn my-1" onclick="handleFitbotQuestion('Contacto directo', '#contacto', 'Déjanos tus datos en la sección de contacto para agendar tu primera cita.')">
+                    <span>📞 Contacto directo</span>
+                    <i class="bi bi-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts de soporte -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Lógica de apertura/cierre de FitBot
+        const toggleBtn = document.getElementById('fitbotToggleBtn');
+        const closeBtn = document.getElementById('fitbotCloseBtn');
+        const fitbotWindow = document.getElementById('fitbotWindow');
+
+        toggleBtn.addEventListener('click', () => {
+            fitbotWindow.style.display = fitbotWindow.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        closeBtn.addEventListener('click', () => {
+            fitbotWindow.style.display = 'none';
+        });
+
+        // Interacción de preguntas rápidas
+        function handleFitbotQuestion(titulo, targetId, respuesta) {
+            const body = document.getElementById('fitbotBody');
+
+            // Agregar mensaje del usuario
+            const userMsg = document.createElement('div');
+            userMsg.className = 'fitbot-msg user';
+            userMsg.innerText = titulo;
+            body.appendChild(userMsg);
+
+            // Respuesta del bot
+            setTimeout(() => {
+                const botMsg = document.createElement('div');
+                botMsg.className = 'fitbot-msg bot';
+                botMsg.innerHTML = respuesta;
+                body.appendChild(botMsg);
+                body.scrollTop = body.scrollHeight;
+
+                // Redireccionar/Desplazar suavemente a la sección correspondiente
+                if (targetId) {
+                    const section = document.querySelector(targetId);
+                    if (section) {
+                        section.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            }, 300);
+        }
+    </script>
+</body>
+</html>

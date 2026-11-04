@@ -1,0 +1,522 @@
+:root {
+    --brand-color: #d4ff00;
+    --bg-dark: #0d0d0d;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-dark);
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+.brand-title {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 1px;
+}
+
+/* Colores Neón */
+.text-brand {
+    color: var(--brand-color) !important;
+}
+
+.bg-brand {
+    background-color: var(--brand-color) !important;
+}
+
+/* Botones */
+.btn-brand {
+    background-color: var(--brand-color) !important;
+    color: #000000 !important;
+    border: none !important;
+    font-weight: 800 !important;
+    transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+    .btn-brand:hover {
+        background-color: #c0ea00 !important;
+        color: #000000 !important;
+        transform: translateY(-2px);
+    }
+
+.btn-black {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+
+    .btn-black:hover {
+        background-color: #1a1a1a !important;
+        color: #ffffff !important;
+    }
+
+.btn-outline-light {
+    border: 1px solid #ffffff !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+    .btn-outline-light:hover {
+        background-color: #ffffff !important;
+        color: #000000 !important;
+    }
+
+/* ========================================================
+   MEJORA DE CONTRASTE PARA TEXTOS DESCRIPTIVOS
+   (Mantiene intactos blancos puros y verdes/neón)
+   ======================================================== */
+
+/* 1. Descripción de la portada (Hero) */
+.hero-section p.lead,
+.hero-section p.lead.text-secondary,
+.hero-section p {
+    color: #e0e4ea !important;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    font-weight: 400;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9);
+}
+
+/* 2. Descripciones dentro de las tarjetas de programas */
+.card-program .card-text,
+.card-program p {
+    color: #d1d5db !important;
+    font-size: 0.92rem;
+    line-height: 1.5;
+}
+
+/* 3. Descripciones de comidas e ingredientes en Nutrición */
+.list-group-item span:last-child,
+.list-group-item .text-secondary {
+    color: #e5e7eb !important;
+    font-size: 0.9rem;
+}
+
+/* 4. Textos complementarios de testimonios, métricas y contacto */
+#testimonios p,
+#contacto p,
+.text-uppercase.small.text-secondary,
+.card-program span.small {
+    color: #cbd5e1 !important;
+}
+
+/* Sobrescribe la clase secundaria de Bootstrap en párrafos y spans descriptivos */
+p.text-secondary,
+span.text-secondary,
+small.text-secondary {
+    color: #d1d5db !important;
+}
+
+/* Hero Section (Sintaxis separada sin advertencia CSS105) */
+.hero-section {
+    min-height: 90vh;
+    padding-top: 100px;
+    background-image: linear-gradient(90deg, rgba(13,13,13,0.95) 30%, rgba(13,13,13,0.4) 100%), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Tarjetas de Programas */
+.card-program {
+    background-color: #141414 !important;
+    border: 1px solid #2a2a2a !important;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+    .card-program:hover {
+        transform: translateY(-5px);
+        border-color: var(--brand-color) !important;
+    }
+
+.badge-tag {
+    background-color: #262626;
+    color: var(--brand-color);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+}
+
+.nav-pills .nav-link.active {
+    background-color: transparent !important;
+    color: var(--brand-color) !important;
+    border-bottom: 3px solid var(--brand-color);
+    border-radius: 0;
+    font-weight: bold;
+}
+
+/* ========================================================
+   ANIMACIÓN ZOOM ENTRENADORES (HOVER)
+   ======================================================== */
+.trainer-card {
+    transition: transform 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+}
+
+    .trainer-card:hover {
+        border-color: var(--brand-color) !important;
+    }
+
+.trainer-img-wrapper {
+    overflow: hidden !important;
+    border-top-left-radius: calc(var(--bs-border-radius) - 1px);
+    border-top-right-radius: calc(var(--bs-border-radius) - 1px);
+    height: 280px;
+    width: 100%;
+}
+
+.trainer-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+.trainer-card:hover .trainer-img {
+    transform: scale(1.08) !important;
+}
+
+/* ========================================================
+   FITBOT FLOTANTE Y CHATBOX
+   ======================================================== */
+.fitbot-floating-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--brand-color) !important;
+    color: #000000 !important;
+    border: none;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 20px rgba(212, 255, 0, 0.4);
+    cursor: pointer;
+    z-index: 1060;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .fitbot-floating-btn:hover {
+        transform: scale(1.08);
+        box-shadow: 0 6px 25px rgba(212, 255, 0, 0.6);
+    }
+
+.fitbot-pulse::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    right: -6px;
+    bottom: -6px;
+    border-radius: 50%;
+    border: 2px solid var(--brand-color);
+    animation: fitbotPulseAnim 1.8s infinite;
+    opacity: 0.8;
+}
+
+@keyframes fitbotPulseAnim {
+    0% {
+        transform: scale(0.95);
+        opacity: 0.9;
+    }
+
+    70% {
+        transform: scale(1.35);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1.4);
+        opacity: 0;
+    }
+}
+
+.fitbot-window {
+    position: fixed !important;
+    bottom: 95px !important;
+    right: 25px !important;
+    width: 360px !important;
+    max-width: calc(100vw - 40px) !important;
+    height: 520px !important;
+    background-color: #111111 !important;
+    border: 1px solid #2a2a2a !important;
+    border-radius: 16px !important;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.9) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    z-index: 1060 !important;
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+    .fitbot-window.active {
+        transform: translateY(0) scale(1) !important;
+        opacity: 1 !important;
+        pointer-events: all !important;
+    }
+
+.fitbot-header {
+    background-color: #181818 !important;
+    padding: 14px 18px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    border-bottom: 1px solid #262626 !important;
+}
+
+.fitbot-status-dot {
+    width: 9px;
+    height: 9px;
+    background-color: #22c55e;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 8px #22c55e;
+    animation: dotBlink 2s infinite ease-in-out;
+}
+
+@keyframes dotBlink {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.4;
+        transform: scale(0.85);
+    }
+}
+
+.fitbot-body {
+    flex: 1 !important;
+    padding: 16px !important;
+    overflow-y: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    scroll-behavior: smooth;
+}
+
+.fitbot-msg {
+    max-width: 85%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 0.88rem;
+    line-height: 1.4;
+    animation: msgFadeIn 0.25s ease forwards;
+}
+
+@keyframes msgFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fitbot-msg.bot {
+    background-color: #1f1f1f !important;
+    color: #f1f1f1 !important;
+    border-left: 3px solid var(--brand-color) !important;
+    align-self: flex-start !important;
+}
+
+.fitbot-msg.user {
+    background-color: var(--brand-color) !important;
+    color: #000000 !important;
+    font-weight: 600 !important;
+    align-self: flex-end !important;
+}
+
+.fitbot-options {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 7px !important;
+    margin-top: 6px !important;
+    width: 100% !important;
+}
+
+.fitbot-opt-btn {
+    width: 100% !important;
+    background-color: #1a1a1a !important;
+    color: #e5e5e5 !important;
+    border: 1px solid #333333 !important;
+    border-radius: 8px !important;
+    padding: 8px 12px !important;
+    font-size: 0.82rem !important;
+    text-align: left !important;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+
+    .fitbot-opt-btn:hover {
+        background-color: #262626 !important;
+        border-color: var(--brand-color) !important;
+        color: var(--brand-color) !important;
+        transform: translateX(3px);
+    }
+
+    .fitbot-opt-btn i {
+        color: var(--brand-color) !important;
+        font-size: 0.75rem;
+    }
+
+.fitbot-footer {
+    padding: 10px 14px !important;
+    background-color: #161616 !important;
+    border-top: 1px solid #262626 !important;
+    text-align: center !important;
+}
+
+/* ========================================================
+   MODAL REGISTRO & DIAGNÓSTICO (ESTILO MINIMALISTA)
+   ======================================================== */
+.fitboom-auth-modal {
+    background-color: #111111 !important;
+    border: 1px solid #262626 !important;
+    border-radius: 4px !important;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9) !important;
+}
+
+.btn-close-clean {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: transparent !important;
+    border: none !important;
+    color: #888888;
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 10;
+    transition: color 0.2s ease;
+}
+
+    .btn-close-clean:hover {
+        color: #ffffff;
+    }
+
+.auth-pretitle {
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+}
+
+.auth-title {
+    font-size: 2rem;
+    letter-spacing: 1px;
+}
+
+.auth-step-badge {
+    font-size: 0.72rem;
+    letter-spacing: 1.5px;
+    color: #777777;
+    font-weight: 700;
+}
+
+.auth-label {
+    display: block;
+    font-size: 0.72rem;
+    letter-spacing: 1.5px;
+    color: #b0b0b0;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.auth-input {
+    background-color: #171717 !important;
+    border: 1px solid #282828 !important;
+    border-radius: 2px !important;
+    color: #ffffff !important;
+    font-size: 0.88rem !important;
+    padding: 10px 14px !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+    .auth-input:focus {
+        border-color: var(--brand-color) !important;
+        box-shadow: 0 0 0 1px var(--brand-color) !important;
+        outline: none !important;
+    }
+
+    .auth-input::placeholder {
+        color: #555555 !important;
+    }
+
+/* Estilos orientados al tema oscuro y paleta de grises/plata */
+.sidebar {
+    width: 240px;
+    background-color: #121212;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    height: 100vh;
+    font-family: sans-serif;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    color: #a0a0a0;
+    text-decoration: none;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 4px;
+    font-size: 15px;
+    transition: background 0.2s;
+}
+
+    .nav-item:hover, .nav-item.active {
+        background-color: #1f1f1f;
+        color: #ffffff;
+    }
+
+    .nav-item .icon {
+        margin-right: 12px;
+    }
+
+.user-profile {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    background-color: #181818;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #ccff00; /* Estilo de acento tipo Fitboom */
+    margin-right: 10px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.user-email {
+    color: #ffffff; /* Modificado a blanco como lo solicitaste */
+    font-size: 12px;
+}

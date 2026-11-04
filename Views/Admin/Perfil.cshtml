@@ -1,0 +1,99 @@
+﻿@model FITBOOM.Models.Usuario
+
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Mi Perfil";
+
+    // Carga exactamente la misma foto almacenada en sesión
+    var fotoPerfil = Context.Session.GetString("UsuarioFoto")
+                     ?? "https://images.unsplash.com/photo-1566492031773-4f4e44671857?w=150&auto=format&fit=crop&q=80";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="fw-bold text-white mb-1">
+            <i class="bi bi-person-circle text-neon me-2"></i>Mi Perfil
+        </h3>
+        <p class="text-light opacity-75 small mb-0">
+            Administra la información de tu cuenta en FITBOOM.
+        </p>
+    </div>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show bg-dark text-success border-success mb-4" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="row">
+    <!-- Tarjeta Izquierda (Sin el botón de Ver Sitio Público) -->
+    <div class="col-md-4 mb-4">
+        <div class="card bg-dark border-secondary shadow-sm text-center p-4">
+            <div class="position-relative d-inline-block mx-auto mt-3">
+                <img src="@fotoPerfil" alt="Avatar" class="rounded-circle border border-2 border-neon" style="width: 120px; height: 120px; object-fit: cover;" />
+            </div>
+            <div class="card-body">
+                <h4 class="fw-bold text-white mb-1">@(Model != null ? $"{Model.Nombre} {Model.Apellido}" : "Santiago")</h4>
+                <p class="text-muted small mb-3">@(Model != null ? Model.Correo : "SantiagoR@gmail.com")</p>
+
+                @{
+                    var rolTexto = string.IsNullOrWhiteSpace(Model?.Rol) ? "Administrador" : Model.Rol;
+                }
+                <span class="badge bg-neon text-dark fw-bold px-3 py-2 mb-3">
+                    @rolTexto
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulario Derecho -->
+    <div class="col-md-8">
+        <div class="card bg-dark border-secondary shadow-sm">
+            <div class="card-header border-bottom border-secondary bg-transparent py-3">
+                <h5 class="fw-bold text-white mb-0">
+                    <i class="bi bi-pencil-square text-neon me-2"></i>Actualizar Datos y Foto de Perfil
+                </h5>
+            </div>
+            <div class="card-body">
+                <form asp-action="Perfil" method="post">
+                    <input type="hidden" asp-for="IdUsuario" />
+
+                    <div class="mb-3">
+                        <label asp-for="Nombre" class="form-label text-muted small fw-semibold">Nombre(s)</label>
+                        <input asp-for="Nombre" class="form-control bg-dark text-white border-secondary" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Apellido" class="form-label text-muted small fw-semibold">Apellido(s)</label>
+                        <input asp-for="Apellido" class="form-control bg-dark text-white border-secondary" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Correo" class="form-label text-muted small fw-semibold">Correo Electrónico</label>
+                        <input asp-for="Correo" class="form-control bg-dark text-white border-secondary" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Rol" class="form-label text-muted small fw-semibold">Rol del Sistema</label>
+                        <input asp-for="Rol" class="form-control bg-dark text-white border-secondary" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-muted small fw-semibold">URL de la Foto de Perfil</label>
+                        <input type="text" name="FotoUrl" value="@fotoPerfil" class="form-control bg-dark text-white border-secondary" placeholder="Pega el enlace de tu imagen" />
+                        <small class="text-muted" style="font-size: 0.75rem;">Actualiza el enlace y haz clic en Guardar para cambiar la foto en todo el panel.</small>
+                    </div>
+
+                    <div class="d-flex justify-content-end mt-4">
+                        <button type="submit" class="btn btn-neon fw-bold px-4">
+                            <i class="bi bi-save me-1"></i> Guardar Cambios
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Configuración";
+}
+
+<div class="container mt-5 text-white" style="max-width: 600px;">
+    <h2 class="mb-4" style="color: #ADFF2F;">Configuración de la Cuenta</h2>
+
+    @if (TempData["MensajeExitoConfig"] != null)
+    {
+        <div class="alert alert-success bg-dark text-success border-success mb-3">
+            @TempData["MensajeExitoConfig"]
+        </div>
+    }
+
+    @if (TempData["ErrorConfig"] != null)
+    {
+        <div class="alert alert-danger bg-dark text-danger border-danger mb-3">
+            @TempData["ErrorConfig"]
+        </div>
+    }
+
+    <div class="p-4 bg-dark rounded border border-secondary mb-4">
+        <h4 class="h5 mb-3 text-white">Cambiar Contraseña</h4>
+        <form asp-action="CambiarContrasena" method="post">
+            <div class="mb-3">
+                <label class="form-label">Contraseña Actual</label>
+                <input type="password" name="contrasenaActual" class="form-control bg-secondary text-white border-0" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Nueva Contraseña</label>
+                <input type="password" name="nuevaContrasena" class="form-control bg-secondary text-white border-0" required />
+            </div>
+
+            <button type="submit" class="btn" style="background-color: #ADFF2F; color: black; font-weight: bold;">
+                Actualizar Contraseña
+            </button>
+        </form>
+    </div>
+</div>

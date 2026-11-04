@@ -1,0 +1,129 @@
+﻿@{
+    ViewData["Title"] = "Programas y Pagos";
+}
+
+<div class="main-container">
+    <!-- Encabezado -->
+    <div class="header-section">
+        <h1 class="page-title">Programas Especializados y Pagos</h1>
+        <button class="btn-primary">+ Nuevo Programa</button>
+    </div>
+
+    <!-- Pestañas -->
+    <div class="tabs-container">
+        <button class="tab-btn active" onclick="openTab('programas')">Programas de Entrenamiento</button>
+        <button class="tab-btn" onclick="openTab('pagos')">Historial de Pagos</button>
+    </div>
+
+    <!-- TAB 1: PROGRAMAS DE ENTRENAMIENTO -->
+    <div id="programas" class="tab-content active">
+        <div class="table-card">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Programa / Condición</th>
+                        <th>Duración Recomendada</th>
+                        <th>Enfoque Principal</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Programa Diabetes</td>
+                        <td>50 - 65 min</td>
+                        <td>Absorción de azúcar mediante fuerza y cardio moderado</td>
+                        <td><span class="badge active">Activo</span></td>
+                        <td>
+                            <button class="btn-action edit">Editar</button>
+                            <button class="btn-action details">Detalles</button>
+                            <button class="btn-action delete">Eliminar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Programa Hipertensión</td>
+                        <td>45 - 60 min</td>
+                        <td>Control de presión arterial y cardio de bajo impacto</td>
+                        <td><span class="badge active">Activo</span></td>
+                        <td>
+                            <button class="btn-action edit">Editar</button>
+                            <button class="btn-action details">Detalles</button>
+                            <button class="btn-action delete">Eliminar</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Programa Obesidad y Sobrepeso</td>
+                        <td>50 - 65 min</td>
+                        <td>Protección articular e incremento de gasto calórico</td>
+                        <td><span class="badge active">Activo</span></td>
+                        <td>
+                            <button class="btn-action edit">Editar</button>
+                            <button class="btn-action details">Detalles</button>
+                            <button class="btn-action delete">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- TAB 2: HISTORIAL DE PAGOS -->
+    <div id="pagos" class="tab-content" style="display: none;">
+        <div class="table-card">
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Cliente</th>
+                        <th>Programa Asignado</th>
+                        <th>Monto</th>
+                        <th>Fecha de Pago</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>101</td>
+                        <td>Juan</td>
+                        <td>Programa Diabetes</td>
+                        <td>$120,000</td>
+                        <td>2026-09-01</td>
+                        <td><span class="badge active">Completado</span></td>
+                        <td>
+                            <button class="btn-action edit">Editar</button>
+                            <button class="btn-action details">Detalles</button>
+                            <button class="btn-action delete">Anular</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>102</td>
+                        <td>Andres</td>
+                        <td>Programa Obesidad y Sobrepeso</td>
+                        <td>$120,000</td>
+                        <td>2026-09-15</td>
+                        <td><span class="badge active">Completado</span></td>
+                        <td>
+                            <button class="btn-action edit">Editar</button>
+                            <button class="btn-action details">Detalles</button>
+                            <button class="btn-action delete">Anular</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        document.getElementById(tabId).style.display = 'block';
+        event.currentTarget.classList.add('active');
+    }
+</script>

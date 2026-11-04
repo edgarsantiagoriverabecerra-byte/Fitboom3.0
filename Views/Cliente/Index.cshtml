@@ -1,0 +1,714 @@
+﻿@{
+    ViewData["Title"] = "Panel de Nutrición";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FITBOOM</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #181818;
+            --accent-green: #ADFF2F;
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Barra de Navegación Superior */
+        .navbar-fitboom {
+            background-color: var(--bg-color);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .btn-salir {
+            background: transparent;
+            border: 1px solid #2e2e2e;
+            color: var(--text-main);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+            .btn-salir:hover {
+                border-color: var(--accent-green);
+                color: var(--accent-green);
+            }
+
+        /* Cabecera del Usuario y Menú Central (Sin Inicio) */
+        .user-header-container {
+            max-width: 1200px;
+            margin: 10px auto 40px auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .user-profile-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-green);
+            object-fit: cover;
+        }
+
+        .user-text h4 {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .user-text p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+            .user-text p span {
+                color: var(--accent-green);
+                font-weight: 700;
+            }
+
+        .nav-pills-custom {
+            display: flex;
+            background-color: var(--card-bg);
+            padding: 6px;
+            border-radius: 30px;
+            border: 1px solid #2e2e2e;
+            gap: 5px;
+        }
+
+        .nav-pill-item {
+            color: var(--text-muted);
+            text-decoration: none;
+            padding: 8px 22px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+            .nav-pill-item:hover {
+                color: var(--text-main);
+            }
+
+            .nav-pill-item.active {
+                background-color: var(--accent-green);
+                color: #121212;
+            }
+
+        .settings-btn {
+            background-color: var(--card-bg);
+            border: 1px solid #2e2e2e;
+            color: #d1b3ff;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+            .settings-btn:hover {
+                border-color: var(--accent-green);
+            }
+
+        /* Contenedor Principal */
+        .container-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Paneles de Seguimiento Diario (Imagen de referencia) */
+        .dashboard-box {
+            background-color: var(--card-bg);
+            border: 1px solid #262626;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        /* Círculo de Calorías */
+        .cal-circle-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: conic-gradient(var(--accent-green) 0% 79%, #262626 79% 100%);
+            margin: 0 auto 15px auto;
+        }
+
+        .cal-circle-inner {
+            width: 106px;
+            height: 106px;
+            background-color: var(--card-bg);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .cal-number {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text-main);
+            line-height: 1.1;
+        }
+
+        .cal-sub {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .macros-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .macro-row {
+            margin-bottom: 12px;
+        }
+
+        .macro-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            margin-bottom: 5px;
+            color: var(--text-muted);
+        }
+
+            .macro-info span:last-child {
+                color: var(--text-main);
+                font-weight: 600;
+            }
+
+        .progress-bar-custom {
+            height: 8px;
+            background-color: #262626;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background-color: var(--accent-green);
+            border-radius: 10px;
+        }
+
+        /* Formulario Añadir Comida */
+        .form-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .input-fitboom {
+            background-color: #121212 !important;
+            border: 1px solid #2a2a2a !important;
+            color: var(--text-main) !important;
+            border-radius: 12px;
+            padding: 12px 15px;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+            .input-fitboom:focus {
+                border-color: var(--accent-green) !important;
+                box-shadow: none !important;
+            }
+
+            .input-fitboom::placeholder {
+                color: var(--text-muted);
+            }
+
+        .btn-registrar {
+            background-color: var(--accent-green);
+            color: #121212;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            padding: 12px;
+            width: 100%;
+            font-size: 0.95rem;
+            transition: opacity 0.3s;
+        }
+
+            .btn-registrar:hover {
+                opacity: 0.9;
+            }
+
+        /* Recomendaciones Inteligentes */
+        .rec-box-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .rec-card {
+            background-color: #121212;
+            border: 1px solid #262626;
+            border-radius: 14px;
+            padding: 15px;
+            height: 100%;
+            transition: border-color 0.3s;
+        }
+
+            .rec-card:hover {
+                border-color: var(--accent-green);
+            }
+
+        .rec-food-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .rec-food-sub {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        /* Hidratación */
+        .hydration-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .hydration-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .hydration-counter {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .water-drops {
+            display: flex;
+            gap: 12px;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .drop-item {
+            width: 40px;
+            height: 48px;
+            background-color: #121212;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-green);
+            font-size: 0.9rem;
+            border: 1px solid #262626;
+        }
+
+            .drop-item.inactive {
+                color: #3a3a3a;
+            }
+
+        .hydration-footer-text {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+            .hydration-footer-text span {
+                color: var(--text-main);
+                font-weight: 600;
+            }
+
+        /* Sección de Planes de Nutrición (Lo último mostrado) */
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-top: 40px;
+            margin-bottom: 5px;
+        }
+
+            .section-title span {
+                color: var(--accent-green);
+                font-style: italic;
+            }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        .nutrition-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #2a2a2a;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+            .nutrition-card:hover {
+                transform: translateY(-5px);
+                border-color: var(--accent-green);
+            }
+
+        .nutrition-img-container {
+            position: relative;
+            height: 180px;
+            overflow: hidden;
+        }
+
+            .nutrition-img-container img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                filter: brightness(0.85);
+            }
+
+        .badge-tag {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--accent-green);
+            color: #121212;
+            font-weight: 800;
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .nutrition-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .nutrition-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .nutrition-desc {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+
+        .nutrition-footer {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #2a2a2a;
+            padding-top: 12px;
+            margin-top: auto;
+        }
+
+        .stat-box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-label {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-top: 2px;
+        }
+
+        footer {
+            background-color: var(--card-bg);
+            border-top: 1px solid #2a2a2a;
+            padding: 25px 0;
+            margin-top: 60px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+            footer span {
+                color: var(--accent-green);
+                font-weight: bold;
+            }
+    </style>
+</head>
+<body>
+
+    <!-- Barra Superior -->
+    <nav class="navbar-fitboom">
+        <a href="@Url.Action("Index", "Home")" class="btn-salir">
+            <i class="fa-solid fa-right-from-bracket"></i> Salir
+        </a>
+    </nav>
+
+    <!-- Cabecera de Usuario y Menú Central (Sin Inicio) -->
+    <div class="user-header-container">
+        <div class="user-profile-info">
+            <img src="@(Context.Session.GetString("UsuarioFoto") ?? "/images/imagen predeterminada.jpg")" alt="Avatar" class="user-avatar" />
+            <div class="user-text">
+                <h4>Hola, @(Context.Session.GetString("UsuarioNombre") ?? "Juan")</h4>
+                <p>Tu progreso de hoy está al <span>79%</span></p>
+            </div>
+        </div>
+
+        <div class="nav-pills-custom">
+            <a href="@Url.Action("Index", "Cliente")" class="nav-pill-item active">Nutrición</a>
+            <a href="@Url.Action("Rutinas", "Cliente")" class="nav-pill-item">Rutinas</a>
+            <a href="#" class="nav-pill-item">Comunidad</a>
+        </div>
+
+        <div class="settings-btn">
+            <i class="fa-solid fa-gear"></i>
+        </div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="container-content">
+
+        <!-- Fila Superior: Panel de Macros y Recomendaciones Inteligentes -->
+        <div class="row">
+            <!-- Columna Izquierda: Calorías y Macros del día -->
+            <div class="col-lg-6">
+                <div class="dashboard-box">
+                    <div class="row align-items-center">
+                        <div class="col-sm-5 text-center mb-3 mb-sm-0">
+                            <div class="cal-circle-container">
+                                <div class="cal-circle-inner">
+                                    <span class="cal-number">1,842</span>
+                                    <span class="cal-sub">de 2,300 kcal</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="macros-title">Macros del día</div>
+
+                            <div class="macro-row">
+                                <div class="macro-info"><span>Proteínas</span><span>118 / 140 g</span></div>
+                                <div class="progress-bar-custom"><div class="progress-fill" style="width: 84%;"></div></div>
+                            </div>
+
+                            <div class="macro-row">
+                                <div class="macro-info"><span>Carbohidratos</span><span>186 / 260 g</span></div>
+                                <div class="progress-bar-custom"><div class="progress-fill" style="width: 71%;"></div></div>
+                            </div>
+
+                            <div class="macro-row mb-0">
+                                <div class="macro-info"><span>Grasas</span><span>54 / 72 g</span></div>
+                                <div class="progress-bar-custom"><div class="progress-fill" style="width: 75%;"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulario Añadir Comida -->
+                <div class="dashboard-box">
+                    <div class="form-title">Añadir comida</div>
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control input-fitboom" placeholder="Nombre del alimento">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control input-fitboom" placeholder="Cantidad (g)">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control input-fitboom" placeholder="Calorías (ej. 250)">
+                            </div>
+                            <div class="col-md-6">
+                                <select class="form-control input-fitboom">
+                                    <option>Desayuno</option>
+                                    <option>Almuerzo</option>
+                                    <option>Cena</option>
+                                    <option>Snack</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-registrar">+ REGISTRAR</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Columna Derecha: Recomendaciones Inteligentes e Hidratación -->
+            <div class="col-lg-6">
+                <!-- Recomendaciones Inteligentes -->
+                <div class="dashboard-box">
+                    <div class="rec-box-title">
+                        <i class="fa-solid fa-lightbulb" style="color: var(--accent-green);"><span></span></i> Recomendaciones Inteligentes
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <div class="rec-card">
+                                <div class="rec-food-title"><i class="fa-solid fa-egg me-1" style="color:#d1b3ff;"></i> Huevos revueltos</div>
+                                <div class="rec-food-sub">180 kcal • +12g prot</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="rec-card">
+                                <div class="rec-food-title"><i class="fa-solid fa-apple-whole me-1" style="color:var(--accent-green);"></i> Manzana con almendras</div>
+                                <div class="rec-food-sub">165 kcal • snack</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="rec-card">
+                                <div class="rec-food-title"><i class="fa-solid fa-seedling me-1" style="color:var(--accent-green);"></i> Batido de proteína</div>
+                                <div class="rec-food-sub">190 kcal • post-entreno</div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="rec-card">
+                                <div class="rec-food-title"><i class="fa-solid fa-bowl-rice me-1" style="color:#d1b3ff;"></i> Arroz integral con atún</div>
+                                <div class="rec-food-sub">340 kcal • almuerzo</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hidratación -->
+                <div class="dashboard-box">
+                    <div class="hydration-header">
+                        <h4 class="hydration-title">Hidratación</h4>
+                        <span class="hydration-counter">4 / 8 vasos</span>
+                    </div>
+                    <div class="water-drops">
+                        <div class="drop-item"><i class="fa-solid fa-droplet"></i></div>
+                        <div class="drop-item"><i class="fa-solid fa-droplet"></i></div>
+                        <div class="drop-item"><i class="fa-solid fa-droplet"></i></div>
+                        <div class="drop-item"><i class="fa-solid fa-droplet"></i></div>
+                        <div class="drop-item inactive"><i class="fa-solid fa-droplet"></i></div>
+                        <div class="drop-item inactive"><i class="fa-solid fa-droplet"></i></div>
+                        <div class="drop-item inactive"><i class="fa-solid fa-droplet"></i></div>
+                        <div class="drop-item inactive"><i class="fa-solid fa-droplet"></i></div>
+                    </div>
+                    <p class="hydration-footer-text">Te faltan <span>4 vasos</span> para la meta diaria.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Planes de Nutrición (Catálogo) -->
+        <h1 class="section-title">Planes de <span>Nutrición</span></h1>
+        <p class="section-subtitle">Alimentación estratégica diseñada para potenciar tus resultados y rendimiento físico.</p>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="nutrition-card">
+                    <div class="nutrition-img-container">
+                        <span class="badge-tag">DIETA</span>
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=600" alt="Deficit Calorico">
+                    </div>
+                    <div class="nutrition-body">
+                        <h3 class="nutrition-title">Deficit Calórico Limpio</h3>
+                        <p class="nutrition-desc">Optimizado para la pérdida de grasa corporal preservando la masa magra mediante alta densidad proteica.</p>
+                        <div class="nutrition-footer">
+                            <div class="stat-box"><span class="stat-label">Calorías</span><span class="stat-value">1,850 kcal</span></div>
+                            <div class="stat-box" style="text-align: right;"><span class="stat-label">Proteínas</span><span class="stat-value">140g</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="nutrition-card">
+                    <div class="nutrition-img-container">
+                        <span class="badge-tag">DIETA</span>
+                        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=600" alt="Volumen Muscular">
+                    </div>
+                    <div class="nutrition-body">
+                        <h3 class="nutrition-title">Volumen Muscular Limpio</h3>
+                        <p class="nutrition-desc">Aporte calórico estratégico con carbohidratos complejos para maximizar el crecimiento muscular.</p>
+                        <div class="nutrition-footer">
+                            <div class="stat-box"><span class="stat-label">Calorías</span><span class="stat-value">2,800 kcal</span></div>
+                            <div class="stat-box" style="text-align: right;"><span class="stat-label">Proteínas</span><span class="stat-value">185g</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="nutrition-card">
+                    <div class="nutrition-img-container">
+                        <span class="badge-tag">DIETA</span>
+                        <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&q=80&w=600" alt="Rendimiento KETO">
+                    </div>
+                    <div class="nutrition-body">
+                        <h3 class="nutrition-title">Enfoque Cetogénico KETO</h3>
+                        <p class="nutrition-desc">Alto contenido de grasas saludables y bajo en carbohidratos para potenciar la flexibilidad metabólica.</p>
+                        <div class="nutrition-footer">
+                            <div class="stat-box"><span class="stat-label">Calorías</span><span class="stat-value">2,100 kcal</span></div>
+                            <div class="stat-box" style="text-align: right;"><span class="stat-label">Grasas Sal.</span><span class="stat-value">130g</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Pie de página -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 <span>FITBOOM</span>. Comprometidos con tu excelencia física.</p>
+        </div>
+    </footer>
+</body>
+</html>

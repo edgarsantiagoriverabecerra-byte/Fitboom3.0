@@ -1,0 +1,55 @@
+﻿@model FITBOOM.Models.Usuario
+
+@{
+    ViewData["Title"] = "Detalles del Usuario";
+}
+
+<div class="container mt-4" style="color: white; max-width: 600px;">
+    <h2 class="mb-2" style="color: #ADFF2F; font-weight: bold;">Detalles del Usuario</h2>
+    <h5 class="mb-4 text-muted">Información registrada en la plataforma</h5>
+
+    <div style="background-color: #1a1a1a; padding: 30px; border-radius: 8px; border: 1px solid #333;">
+        <dl class="row">
+            <dt class="col-sm-4 text-muted">ID:</dt>
+            <dd class="col-sm-8" style="font-size: 15px;">@Model.IdUsuario</dd>
+
+            <dt class="col-sm-4 text-muted">Nombre:</dt>
+            <dd class="col-sm-8 fw-bold" style="font-size: 16px;">@Model.Nombre</dd>
+
+            <dt class="col-sm-4 text-muted">Correo electrónico:</dt>
+            <dd class="col-sm-8">@Model.Correo</dd>
+
+            <dt class="col-sm-4 text-muted">Rol:</dt>
+            <dd class="col-sm-8">
+                @{
+                    string bgColor = "#ADFF2F";
+                    string textColor = "#000";
+
+                    if (Model.Rol == "Entrenador")
+                    {
+                        bgColor = "#fd7e14";
+                        textColor = "#fff";
+                    }
+                    else if (Model.Rol == "Nutricionista")
+                    {
+                        bgColor = "#6f42c1";
+                        textColor = "#fff";
+                    }
+                    else if (Model.Rol == "Cliente")
+                    {
+                        bgColor = "#0d6efd";
+                        textColor = "#fff";
+                    }
+                }
+                <span class="badge" style="background-color: @bgColor; color: @textColor; font-weight: bold; padding: 6px 12px;">
+                    @Model.Rol
+                </span>
+            </dd>
+        </dl>
+
+        <div class="mt-4 d-flex justify-content-between align-items-center">
+            <a asp-action="Index" class="btn btn-outline-secondary px-4">Volver a la Lista</a>
+            <a asp-action="Edit" asp-route-id="@Model.IdUsuario" class="btn fw-bold px-4" style="background-color: #ADFF2F; color: #000; border: none;">Editar Usuario</a>
+        </div>
+    </div>
+</div>

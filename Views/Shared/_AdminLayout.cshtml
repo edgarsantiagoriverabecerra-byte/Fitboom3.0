@@ -1,0 +1,128 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    string fotoPerfil = HttpContextAccessor.HttpContext?.Session.GetString("UsuarioFoto") ?? "/images/imagen predeterminada.jpg";
+    string usuarioNombre = HttpContextAccessor.HttpContext?.Session.GetString("UsuarioNombre") ?? "Santiago";
+    string usuarioCorreo = HttpContextAccessor.HttpContext?.Session.GetString("UsuarioCorreo") ?? "SantiagoR@gmail.com";
+    string defaultAvatar = "https://cdn-icons-png.flaticon.com/512/847/847969.png";
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FITBOOM Admin</title>
+
+    <!-- Bootstrap CSS & Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Google Fonts (Bebas Neue) -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0d0d0d;
+            color: #f8f9fa;
+        }
+
+        .text-neon {
+            color: #ADFF2F !important;
+        }
+
+        .bg-neon {
+            background-color: #ADFF2F !important;
+        }
+
+        .nav-link:hover {
+            background-color: rgba(173, 255, 47, 0.08);
+            color: #ADFF2F !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="d-flex" style="min-height: 100vh;">
+        <!-- Barra Lateral / Sidebar -->
+        <div class="d-flex flex-column flex-shrink-0 p-3 text-white" style="width: 280px; min-height: 100vh; background-color: #121212 !important; border-right: 1px solid #222;">
+            <!-- Logotipo FITBOOM -->
+            <a href="@Url.Action("Index", "Admin")" class="d-flex align-items-center mb-2 mb-md-0 me-md-auto text-white text-decoration-none">
+                <span class="fs-4 fw-bold" style="color: #ADFF2F; font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px;">FITBOOM</span>
+            </a>
+            <hr class="border-secondary my-2">
+
+            <!-- Enlaces de Navegación -->
+            <ul class="nav nav-pills flex-column mb-auto gap-1">
+                <li class="nav-item">
+                    <a href="@Url.Action("Index", "Admin")" class="nav-link text-white d-flex align-items-center gap-2 py-2">
+                        <i class="bi bi-grid-1x2-fill"></i> Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Usuarios", "Admin")" class="nav-link text-white d-flex align-items-center gap-2 py-2">
+                        <i class="bi bi-people-fill"></i> Usuarios
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Profesionales", "Admin")" class="nav-link text-white d-flex align-items-center gap-2 py-2">
+                        <i class="bi bi-person-badge-fill"></i> Profesionales
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Membresias", "Admin")" class="nav-link text-white d-flex align-items-center gap-2 py-2">
+                        <i class="bi bi-card-checklist"></i> Membresías
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Alimentos", "Admin")" class="nav-link text-white d-flex align-items-center gap-2 py-2">
+                        <i class="bi bi-egg-fried"></i> Alimentos
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Perfil", "Admin")" class="nav-link text-white d-flex align-items-center gap-2 py-2">
+                        <i class="bi bi-person-circle"></i> Mi Perfil
+                    </a>
+                </li>
+                <!-- Apartado de Configuración -->
+                <li>
+                    <a href="@Url.Action("Configuracion", "Admin")" class="nav-link text-white d-flex align-items-center gap-2 py-2" style="background-color: rgba(173, 255, 47, 0.1); color: #ADFF2F !important;">
+                        <i class="bi bi-gear-fill"></i> Configuración
+                    </a>
+                </li>
+            </ul>
+
+            <hr class="border-secondary my-2">
+
+            <!-- Sección de Usuario Inferior -->
+            <div class="dropdown">
+                <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle p-2 rounded" style="background-color: #1a1a1a;" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="@fotoPerfil" alt="@usuarioNombre" width="35" height="35" class="rounded-circle me-2 border" style="object-fit: cover; border-color: #ADFF2F !important;" onerror="this.onerror=null; this.src='@defaultAvatar';">
+                    <div class="d-flex flex-column overflow-hidden">
+                        <strong class="text-truncate" style="font-size: 0.85rem;">@usuarioNombre</strong>
+                        <span class="text-white text-truncate" style="font-size: 0.7rem; font-weight: 500;">@usuarioCorreo</span>
+                    </div>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-dark text-small shadow py-2" aria-labelledby="dropdownUser1" style="background-color: #1a1a1a; border: 1px solid #333;">
+                    <li><a class="dropdown-item py-2 px-3" href="@Url.Action("Perfil", "Admin")"><i class="bi bi-person me-2"></i> Perfil</a></li>
+                    <li><a class="dropdown-item py-2 px-3" href="@Url.Action("Configuracion", "Admin")"><i class="bi bi-key me-2"></i> Cambiar contraseña</a></li>
+                    <li><hr class="dropdown-divider my-1" style="border-color: #333;"></li>
+                    <li><a class="dropdown-item py-2 px-3 text-danger" href="@Url.Action("Logout", "Account")"><i class="bi bi-box-arrow-right me-2"></i> Cerrar sesión</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Contenido Principal -->
+        <main class="flex-grow-1 p-4 overflow-auto">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- SECCIÓN DE SCRIPTS REQUERIDA POR LAS VISTAS -->
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

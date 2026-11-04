@@ -1,0 +1,141 @@
+﻿@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Gestión de Nutrición y Alimentos";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="fw-bold text-white mb-0">
+            <i class="bi bi-egg-fried text-neon me-2"></i>Gestión de Nutrición (Alimentos de Usuarios)
+        </h3>
+        <p class="text-muted small mb-0">Supervisa, modifica o elimina los registros nutricionales ingresados por la comunidad.</p>
+    </div>
+    <button class="btn btn-neon fw-bold text-dark btn-sm px-3" data-bs-toggle="modal" data-bs-target="#modalNuevoAlimento">
+        <i class="bi bi-plus-lg me-1"></i> Nuevo Registro
+    </button>
+</div>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show bg-dark text-success border-success mb-4" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i> @TempData["SuccessMessage"]
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="card bg-dark border-secondary shadow-sm">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-dark table-hover align-middle mb-0">
+                <thead>
+                    <tr class="text-muted border-bottom border-secondary small text-uppercase">
+                        <th class="ps-3">Alimento / Plato</th>
+                        <th>Usuario</th>
+                        <th>Calorías</th>
+                        <th>Proteínas</th>
+                        <th>Carbs</th>
+                        <th>Grasas</th>
+                        <th>Categoría</th>
+                        <th class="text-end pe-3">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="ps-3 fw-semibold text-white">
+                            Avena con plátano <br>
+                            <small class="text-muted fw-normal">180g</small>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center text-white fw-bold" style="width: 28px; height: 28px; font-size: 0.75rem;">CM</div>
+                                <span class="text-light small">Carlos Méndez</span>
+                            </div>
+                        </td>
+                        <td class="text-light">312 kcal</td>
+                        <td class="text-light">12.5 g</td>
+                        <td class="text-light">58 g</td>
+                        <td class="text-light">4.2 g</td>
+                        <td><span class="badge bg-warning bg-opacity-20 text-warning px-2 py-1">Desayuno</span></td>
+                        <td class="text-end pe-3">
+                            <button class="btn btn-sm btn-outline-light border-secondary me-1" title="Modificar Datos" data-bs-toggle="modal" data-bs-target="#modalEditarNutricion">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger border-secondary" title="Eliminar Registro" onclick="alert('¿Desea eliminar este registro nutricional?');">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="ps-3 fw-semibold text-white">
+                            Pechuga de pollo a la plancha <br>
+                            <small class="text-muted fw-normal">220g</small>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="bg-secondary rounded-circle d-flex align-items-center justify-content-center text-white fw-bold" style="width: 28px; height: 28px; font-size: 0.75rem;">CM</div>
+                                <span class="text-light small">Carlos Méndez</span>
+                            </div>
+                        </td>
+                        <td class="text-light">284 kcal</td>
+                        <td class="text-light">46 g</td>
+                        <td class="text-light">0 g</td>
+                        <td class="text-light">6.2 g</td>
+                        <td><span class="badge bg-info bg-opacity-20 text-info px-2 py-1">Almuerzo</span></td>
+                        <td class="text-end pe-3">
+                            <button class="btn btn-sm btn-outline-light border-secondary me-1" title="Modificar Datos" data-bs-toggle="modal" data-bs-target="#modalEditarNutricion">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger border-secondary" title="Eliminar Registro">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Funcional para Modificar Alimento -->
+<div class="modal fade" id="modalEditarNutricion" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark border border-secondary text-white">
+            <div class="modal-header border-bottom border-secondary">
+                <h5 class="modal-title fw-bold text-neon"><i class="bi bi-pencil-square me-2"></i>Modificar Registro Nutricional</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label class="form-label text-muted small">Nombre del Alimento</label>
+                        <input type="text" class="form-control bg-black border-secondary text-white" value="Avena con plátano">
+                    </div>
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <label class="form-label text-muted small">Calorías (kcal)</label>
+                            <input type="number" class="form-control bg-black border-secondary text-white" value="312">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label text-muted small">Proteínas (g)</label>
+                            <input type="number" class="form-control bg-black border-secondary text-white" value="12.5">
+                        </div>
+                    </div>
+                    <div class="row g-2 mb-3">
+                        <div class="col-6">
+                            <label class="form-label text-muted small">Carbohidratos (g)</label>
+                            <input type="number" class="form-control bg-black border-secondary text-white" value="58">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label text-muted small">Grasas (g)</label>
+                            <input type="number" class="form-control bg-black border-secondary text-white" value="4.2">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer border-top border-secondary">
+                <button type="button" class="btn btn-outline-light btn-sm" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-neon btn-sm fw-bold text-dark" onclick="alert('Cambios guardados con éxito'); location.reload();">Guardar Cambios</button>
+            </div>
+        </div>
+    </div>
+</div>
