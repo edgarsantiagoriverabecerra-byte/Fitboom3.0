@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\Controllers"
   ],
-  "SelectedNode": "\\C:\\Users\\edgar\\Documents\\FIT\\BASE DE DATOS\\Fitboom3.0\\Fitboom3.0",
+  "SelectedNode": "\\Controllers\\AccountController.cs",
   "PreviewInSolutionExplorer": false
 }
